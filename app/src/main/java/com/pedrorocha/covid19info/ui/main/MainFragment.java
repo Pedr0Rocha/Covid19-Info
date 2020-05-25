@@ -1,6 +1,7 @@
 package com.pedrorocha.covid19info.ui.main;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -15,7 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pedrorocha.covid19info.R;
+import com.pedrorocha.covid19info.adapters.CountryAdapter;
+import com.pedrorocha.covid19info.data.model.Country;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
+
+import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
 
@@ -46,6 +51,22 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        setupAvailableCountries();
     }
+
+    private void setupAvailableCountries() {
+        binding.loaderAvailableCountries.setVisibility(View.VISIBLE);
+
+        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countries -> {
+            if (countries == null) return;
+
+            binding.loaderAvailableCountries.setVisibility(View.GONE);
+
+            CountryAdapter adapter = new CountryAdapter(countries);
+            binding.rvAvailableCountries.setAdapter(adapter);
+        });
+    }
+
 
 }
