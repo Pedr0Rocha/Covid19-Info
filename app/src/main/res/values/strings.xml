@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Covid19Info</string>
+    <string name="app_name">Covid19 Info</string>
 
-    <string name="home_title">Covid 19 Info</string>
+    <string name="home_title">Covid19 Info</string>
 
     <string name="home_favorites">Favorites</string>
     <string name="home_available_countries">Available Countries</string>

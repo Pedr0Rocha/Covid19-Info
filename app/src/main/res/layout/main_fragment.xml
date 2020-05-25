@@ -11,20 +11,30 @@
     tools:context=".ui.main.MainFragment">
 
     <TextView
+        android:id="@+id/tv_last_updated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/home_title"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="22sp" />
+        android:text="last updated at 24/05 22:25"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_large"
         android:text="@string/home_favorites"
         android:textSize="18sp" />
 
+    <ProgressBar
+        android:id="@+id/loader_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_large"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="3"
@@ -37,7 +47,16 @@
         android:text="@string/home_available_countries"
         android:textSize="18sp" />
 
+    <ProgressBar
+        android:id="@+id/loader_available_countries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_large"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_available_countries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/itemlist_country" />
