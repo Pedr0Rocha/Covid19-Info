@@ -10,12 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pedrorocha.covid19info.R;
+import com.pedrorocha.covid19info.data.model.CaseInfo;
+import com.pedrorocha.covid19info.data.model.CaseType;
+import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
@@ -24,6 +26,7 @@ public class CountryFragment extends Fragment {
     private CountryViewModel mViewModel;
 
     private String countrySlug = "";
+    private CountryCovidInfo countryCovidInfo;
 
     private CountryFragmentBinding binding;
 
@@ -34,9 +37,14 @@ public class CountryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         countrySlug = this.getArguments().getString(AppConstants.BUNDLE_COUNTRY_SLUG);
-        setHasOptionsMenu(true);
+
+        countryCovidInfo = new CountryCovidInfo(
+            new Country("Brazil", "brazil", "BR"),
+            new CaseInfo(CaseType.CONFIRMED, 25303),
+            new CaseInfo(CaseType.RECOVERED, 50112),
+            new CaseInfo(CaseType.DEATHS, 3503)
+        );
 
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.country_fragment,
@@ -53,6 +61,7 @@ public class CountryFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(CountryViewModel.class);
 
-        binding.teste.setText(countrySlug);
+        binding.setCountryCovidInfo(countryCovidInfo);
+        binding.executePendingBindings();
     }
 }

@@ -8,4 +8,9 @@
 
     <string name="favorite_icon_content_description">favorite icon</string>
     <string name="open_country_page_icon_content_description">open country page icon</string>
+
+    <string name="country_cases">Cases</string>
+    <string name="country_cases_confirmed">Confirmed:</string>
+    <string name="country_cases_recovered">Recovered:</string>
+    <string name="country_cases_deaths">Deaths:</string>
 </resources>
