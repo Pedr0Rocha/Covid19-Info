@@ -24,7 +24,7 @@ public class CountryRepository {
             mock.add(new Country("United States", "united-states", "US"));
 
             mockAvailableCountries.setValue(mock);
-        }, 3000);
+        }, 1500);
 
         return mockAvailableCountries;
     }
