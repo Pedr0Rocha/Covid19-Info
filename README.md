@@ -10,7 +10,7 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] MVVM
 - [x] LiveData
 - [x] DataBiding
-- [ ] Room
+- [x] Room
 - [x] Repository Pattern
 - [x] Observer Pattern
 - [x] Retrofit2 (Gson, OkHttp3)
