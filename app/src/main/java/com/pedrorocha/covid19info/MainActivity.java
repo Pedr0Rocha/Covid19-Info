@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.data.model.Country;
 import com.pedrorocha.covid19info.ui.country.CountryFragment;
 import com.pedrorocha.covid19info.ui.main.MainFragment;
@@ -38,5 +39,13 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, countryFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public void addToFavorites(Country country) {
+        Snackbar.make(
+                findViewById(android.R.id.content),
+                getResources().getString(R.string.added_to_favorites, country.getName()),
+                Snackbar.LENGTH_SHORT
+        ).show();
     }
 }

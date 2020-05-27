@@ -17,13 +17,29 @@
         android:orientation="vertical"
         tools:context=".ui.country.CountryFragment">
 
-        <TextView
-            android:id="@+id/tv_country_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@{countryCovidInfo.country.name}" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:contentDescription="@string/favorite_icon_content_description"
+                android:src="@drawable/ic_favorite"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_country_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_medium"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryText"
+                android:text="@{countryCovidInfo.country.name}" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

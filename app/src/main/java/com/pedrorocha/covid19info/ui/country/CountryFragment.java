@@ -1,7 +1,7 @@
 package com.pedrorocha.covid19info.ui.country;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
@@ -59,7 +59,7 @@ public class CountryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(CountryViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(CountryViewModel.class);
 
         binding.setCountryCovidInfo(countryCovidInfo);
         binding.executePendingBindings();

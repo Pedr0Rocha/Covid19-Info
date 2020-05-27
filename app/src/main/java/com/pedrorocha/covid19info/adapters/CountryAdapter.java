@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.MainActivity;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.model.Country;
@@ -58,9 +59,17 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
             binding.setCountry(country);
             binding.executePendingBindings();
 
-            binding.ivOpenDetails.setOnClickListener(v -> {
-                ((MainActivity) v.getContext()).openCountryPage(country);
-            });
+            binding.ivOpenDetails.setOnClickListener(v ->
+                    ((MainActivity) v.getContext()).openCountryPage(country)
+            );
+
+            binding.cvCountry.setOnClickListener(v ->
+                    ((MainActivity) v.getContext()).openCountryPage(country)
+            );
+
+            binding.ivFavorite.setOnClickListener(v ->
+                    ((MainActivity) v.getContext()).addToFavorites(country)
+            );
         }
     }
 }

@@ -13,4 +13,6 @@
     <string name="country_cases_confirmed">Confirmed:</string>
     <string name="country_cases_recovered">Recovered:</string>
     <string name="country_cases_deaths">Deaths:</string>
+
+    <string name="added_to_favorites">%1$s added to favorites</string>
 </resources>
