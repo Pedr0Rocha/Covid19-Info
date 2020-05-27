@@ -1,30 +1,42 @@
 package com.pedrorocha.covid19info.ui.main;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
+import com.pedrorocha.covid19info.adapters.CountryAdapter;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
+
+import javax.inject.Inject;
 
 public class MainFragment extends Fragment {
 
-    private MainViewModel mViewModel;
+    @Inject
+    MainViewModel mViewModel;
 
     private MainFragmentBinding binding;
 
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        ((CovidApplication) getActivity().getApplicationContext()).app.inject(this);
+        super.onAttach(context);
     }
 
     @Nullable
@@ -45,7 +57,46 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        setupAvailableCountries();
     }
+
+    private void setupAvailableCountries() {
+        binding.loaderAvailableCountries.setVisibility(View.VISIBLE);
+
+        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countries -> {
+            if (countries == null) return;
+
+            binding.loaderAvailableCountries.setVisibility(View.GONE);
+
+            CountryAdapter adapter = new CountryAdapter(countries);
+            binding.rvAvailableCountries.setAdapter(adapter);
+        });
+
+        mViewModel.testingRequest().observe(getViewLifecycleOwner(), countryResource -> {
+            if (countryResource.loading()) {
+                return;
+            }
+
+            binding.loaderAvailableCountries.setVisibility(View.GONE);
+
+            if (countryResource.error()) {
+                Snackbar.make(
+                        binding.getRoot(),
+                        "Failed loading countries",
+                        Snackbar.LENGTH_SHORT
+                );
+                return;
+            }
+
+            if (countryResource.success()) {
+                Snackbar.make(
+                        binding.getRoot(),
+                        "Downloaded countries",
+                        Snackbar.LENGTH_SHORT
+                );
+            }
+        });
+    }
+
 
 }
