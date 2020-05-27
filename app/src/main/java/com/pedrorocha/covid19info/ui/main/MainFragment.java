@@ -68,6 +68,9 @@ public class MainFragment extends Fragment {
 
         mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countryResource -> {
             if (countryResource.loading()) {
+                if (countryResource.data != null) {
+                    setupCountryAdapter(countryResource.data);
+                }
                 return;
             }
 
@@ -83,12 +86,18 @@ public class MainFragment extends Fragment {
                     showSnackbar("Error rendering country list");
                     return;
                 }
-
-                List<CountryEntity> countries = countryResource.data;
-                CountryAdapter adapter = new CountryAdapter(countries);
-                binding.rvAvailableCountries.setAdapter(adapter);
+                setupCountryAdapter(countryResource.data);
             }
         });
+    }
+
+    private void setupCountryAdapter(List<CountryEntity> countries) {
+        if (binding.rvAvailableCountries.getAdapter() == null) {
+            CountryAdapter adapter = new CountryAdapter(countries);
+            binding.rvAvailableCountries.setAdapter(adapter);
+        } else {
+            ((CountryAdapter) binding.rvAvailableCountries.getAdapter()).updateList(countries);
+        }
     }
 
     private void showSnackbar(String message) {

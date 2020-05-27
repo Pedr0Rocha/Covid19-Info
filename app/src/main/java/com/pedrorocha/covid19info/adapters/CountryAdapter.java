@@ -22,6 +22,11 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         this.countries = countries;
     }
 
+    public void updateList(List<CountryEntity> newList) {
+        this.countries = newList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
