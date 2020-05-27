@@ -10,10 +10,12 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_small"
         android:layout_marginVertical="@dimen/space_small"
+        android:foreground="?android:attr/selectableItemBackground"
         android:paddingHorizontal="@dimen/margin_horizontal"
         android:paddingVertical="@dimen/margin_vertical"
         app:cardCornerRadius="12dp">
@@ -68,6 +70,7 @@
                 android:id="@+id/iv_open_details"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
+                android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/open_country_page_icon_content_description"
                 android:src="@drawable/ic_chevron_right"
                 app:layout_constraintBottom_toBottomOf="parent"

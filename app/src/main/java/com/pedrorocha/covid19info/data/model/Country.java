@@ -5,6 +5,7 @@ public class Country {
     private String name;
     private String slug;
     private String ISO2;
+    private boolean favorite = false;
 
     public Country(String name, String slug, String ISO2) {
         this.name = name;
@@ -22,5 +23,13 @@ public class Country {
 
     public String getISO2() {
         return ISO2;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }
