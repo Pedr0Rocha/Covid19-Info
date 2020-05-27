@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.model.CaseInfo;
 import com.pedrorocha.covid19info.data.model.CaseType;
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;

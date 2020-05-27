@@ -3,7 +3,7 @@ package com.pedrorocha.covid19info.ui.main;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.repositories.CountryRepository;
 

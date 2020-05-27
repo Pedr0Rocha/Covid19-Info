@@ -1,5 +1,7 @@
 package com.pedrorocha.covid19info.data.model;
 
+import com.pedrorocha.covid19info.data.local.CountryEntity;
+
 import java.util.ArrayList;
 
 public class CountryCovidInfo {

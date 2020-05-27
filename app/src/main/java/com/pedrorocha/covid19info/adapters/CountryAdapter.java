@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.ui.main.MainActivity;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.databinding.ItemlistCountryBinding;

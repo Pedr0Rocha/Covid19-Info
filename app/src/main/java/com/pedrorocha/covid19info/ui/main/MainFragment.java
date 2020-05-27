@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.adapters.CountryAdapter;
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
 
 import java.util.List;

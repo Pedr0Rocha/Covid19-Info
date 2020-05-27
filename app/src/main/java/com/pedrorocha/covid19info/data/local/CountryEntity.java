@@ -1,15 +1,20 @@
-package com.pedrorocha.covid19info.data.model;
+package com.pedrorocha.covid19info.data.local;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "countries")
 public class CountryEntity {
 
+    @SerializedName("ISO2")
+    @PrimaryKey private String ISO2;
     @SerializedName("Country")
     private String name;
     @SerializedName("Slug")
     private String slug;
-    @SerializedName("ISO2")
-    private String ISO2;
+
     private boolean favorite = false;
 
     public CountryEntity(String name, String slug, String ISO2) {

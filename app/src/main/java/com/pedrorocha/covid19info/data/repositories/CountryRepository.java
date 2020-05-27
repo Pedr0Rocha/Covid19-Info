@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.network.services.CovidService;

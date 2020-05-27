@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
-import com.pedrorocha.covid19info.data.model.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.ui.country.CountryFragment;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
