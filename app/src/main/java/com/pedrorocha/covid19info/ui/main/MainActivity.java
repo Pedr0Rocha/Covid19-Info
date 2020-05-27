@@ -1,4 +1,4 @@
-package com.pedrorocha.covid19info;
+package com.pedrorocha.covid19info.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.pedrorocha.covid19info.CovidApplication;
+import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.model.Country;
 import com.pedrorocha.covid19info.ui.country.CountryFragment;
 import com.pedrorocha.covid19info.ui.main.MainFragment;

@@ -1,9 +1,14 @@
 package com.pedrorocha.covid19info.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Country {
 
+    @SerializedName("Country")
     private String name;
+    @SerializedName("Slug")
     private String slug;
+    @SerializedName("ISO2")
     private String ISO2;
     private boolean favorite = false;
 

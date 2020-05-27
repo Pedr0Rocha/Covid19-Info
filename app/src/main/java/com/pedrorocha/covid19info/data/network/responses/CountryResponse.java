@@ -1,15 +1,15 @@
 package com.pedrorocha.covid19info.data.network.responses;
 
-import com.google.gson.annotations.SerializedName;
+
+import com.pedrorocha.covid19info.data.model.Country;
+
+import java.util.List;
 
 public class CountryResponse {
 
-    @SerializedName("Country")
-    String name;
+    List<Country> countries;
 
-    @SerializedName("Slug")
-    String slug;
-
-    @SerializedName("ISO2")
-    String ISO2;
+    public List<Country> getCountries() {
+        return countries;
+    }
 }
