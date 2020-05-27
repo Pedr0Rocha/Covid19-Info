@@ -22,11 +22,11 @@ public class MainViewModel extends ViewModel {
         this.countryRepository = countryRepository;
     }
 
-    public LiveData<ArrayList<CountryEntity>> getAvailableCountries() {
+    public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
         return countryRepository.getMockAvailableCountries();
     }
 
-    public LiveData<Resource<List<CountryEntity>>> testingRequest() {
+    public LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
         return countryRepository.getCountries();
     }
 }

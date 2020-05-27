@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.pedrorocha.covid19info.data.local.CountryDao;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
-import com.pedrorocha.covid19info.utils.AbsentLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,12 @@ import retrofit2.Call;
 public class CountryRepository {
 
     private final CovidService covidService;
+    private final CountryDao countryDao;
 
     @Inject
-    public CountryRepository(CovidService covidService) {
+    public CountryRepository(CovidService covidService, CountryDao countryDao) {
         this.covidService = covidService;
+        this.countryDao = countryDao;
     }
 
     public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
@@ -49,14 +51,14 @@ public class CountryRepository {
 
             @Override
             protected void saveCallResult(@NonNull List<CountryEntity> item) {
-                // TODO - save countries (ROOM)
+                if (item.isEmpty()) return;
+                countryDao.insertAll(item);
             }
 
             @NonNull
             @Override
             protected LiveData<List<CountryEntity>> loadFromDb() {
-                // TODO - load countries (ROOM)
-                return AbsentLiveData.create();
+                return countryDao.getAll();
             }
 
             @NonNull
@@ -64,6 +66,7 @@ public class CountryRepository {
             protected Call<List<CountryEntity>> createCall() {
                 return covidService.getCountries();
             }
+
         }.getAsLiveData();
     }
 }

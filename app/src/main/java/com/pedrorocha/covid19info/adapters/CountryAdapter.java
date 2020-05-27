@@ -12,13 +12,13 @@ import com.pedrorocha.covid19info.ui.main.MainActivity;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.databinding.ItemlistCountryBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> {
 
-    private ArrayList<CountryEntity> countries;
+    private List<CountryEntity> countries;
 
-    public CountryAdapter(ArrayList<CountryEntity> countries) {
+    public CountryAdapter(List<CountryEntity> countries) {
         this.countries = countries;
     }
 

@@ -20,6 +20,7 @@ import com.pedrorocha.covid19info.adapters.CountryAdapter;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -65,16 +66,7 @@ public class MainFragment extends Fragment {
     private void setupAvailableCountries() {
         binding.loaderAvailableCountries.setVisibility(View.VISIBLE);
 
-        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countries -> {
-            if (countries == null) return;
-
-            binding.loaderAvailableCountries.setVisibility(View.GONE);
-
-            CountryAdapter adapter = new CountryAdapter(countries);
-            binding.rvAvailableCountries.setAdapter(adapter);
-        });
-
-        mViewModel.testingRequest().observe(getViewLifecycleOwner(), countryResource -> {
+        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countryResource -> {
             if (countryResource.loading()) {
                 return;
             }
@@ -82,24 +74,25 @@ public class MainFragment extends Fragment {
             binding.loaderAvailableCountries.setVisibility(View.GONE);
 
             if (countryResource.error()) {
-                Snackbar.make(
-                        binding.getRoot(),
-                        "Failed loading countries",
-                        Snackbar.LENGTH_SHORT
-                );
+                showSnackbar("Failed to download countries");
                 return;
             }
 
             if (countryResource.success()) {
-                List<CountryEntity> contries = countryResource.data;
-                Snackbar.make(
-                        binding.getRoot(),
-                        "Downloaded countries",
-                        Snackbar.LENGTH_SHORT
-                );
+                if (countryResource.data == null) {
+                    showSnackbar("Error rendering country list");
+                    return;
+                }
+
+                List<CountryEntity> countries = countryResource.data;
+                CountryAdapter adapter = new CountryAdapter(countries);
+                binding.rvAvailableCountries.setAdapter(adapter);
             }
         });
     }
 
+    private void showSnackbar(String message) {
+        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+    }
 
 }

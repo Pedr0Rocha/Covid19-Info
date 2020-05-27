@@ -1,6 +1,7 @@
 package com.pedrorocha.covid19info.data.network.services;
 
 import com.pedrorocha.covid19info.data.local.CountryEntity;
+import com.pedrorocha.covid19info.data.network.responses.CountryResponse;
 
 import java.util.List;
 
