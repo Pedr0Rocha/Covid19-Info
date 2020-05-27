@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.adapters.CountryAdapter;
-import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.model.CountryEntity;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
 
 import java.util.List;
@@ -91,7 +91,7 @@ public class MainFragment extends Fragment {
             }
 
             if (countryResource.success()) {
-                List<Country> contries = countryResource.data;
+                List<CountryEntity> contries = countryResource.data;
                 Snackbar.make(
                         binding.getRoot(),
                         "Downloaded countries",

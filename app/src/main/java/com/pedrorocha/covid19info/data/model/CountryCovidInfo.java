@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class CountryCovidInfo {
 
-    private Country country;
+    private CountryEntity country;
     private CaseInfo confirmed;
     private CaseInfo recovered;
     private CaseInfo deaths;
     private ArrayList<CaseInfo> weekCases;
 
-    public CountryCovidInfo(Country country, CaseInfo confirmed, CaseInfo recovered, CaseInfo deaths) {
+    public CountryCovidInfo(CountryEntity country, CaseInfo confirmed, CaseInfo recovered, CaseInfo deaths) {
         this.country = country;
         this.confirmed = confirmed;
         this.recovered = recovered;
         this.deaths = deaths;
     }
 
-    public Country getCountry() {
+    public CountryEntity getCountry() {
         return country;
     }
 

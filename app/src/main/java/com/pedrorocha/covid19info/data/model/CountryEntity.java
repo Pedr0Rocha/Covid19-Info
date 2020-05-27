@@ -2,7 +2,7 @@ package com.pedrorocha.covid19info.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Country {
+public class CountryEntity {
 
     @SerializedName("Country")
     private String name;
@@ -12,7 +12,7 @@ public class Country {
     private String ISO2;
     private boolean favorite = false;
 
-    public Country(String name, String slug, String ISO2) {
+    public CountryEntity(String name, String slug, String ISO2) {
         this.name = name;
         this.slug = slug;
         this.ISO2 = ISO2;

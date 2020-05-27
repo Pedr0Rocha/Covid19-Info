@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.model.CaseInfo;
 import com.pedrorocha.covid19info.data.model.CaseType;
-import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.model.CountryEntity;
 import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
@@ -40,7 +40,7 @@ public class CountryFragment extends Fragment {
         countrySlug = this.getArguments().getString(AppConstants.BUNDLE_COUNTRY_SLUG);
 
         countryCovidInfo = new CountryCovidInfo(
-            new Country("Brazil", "brazil", "BR"),
+            new CountryEntity("Brazil", "brazil", "BR"),
             new CaseInfo(CaseType.CONFIRMED, 25303),
             new CaseInfo(CaseType.RECOVERED, 50112),
             new CaseInfo(CaseType.DEATHS, 3503)
