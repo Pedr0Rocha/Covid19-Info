@@ -7,19 +7,24 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.ui.main.MainActivity;
 import com.pedrorocha.covid19info.R;
-import com.pedrorocha.covid19info.data.model.Country;
 import com.pedrorocha.covid19info.databinding.ItemlistCountryBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> {
 
-    private ArrayList<Country> countries;
+    private List<CountryEntity> countries;
 
-    public CountryAdapter(ArrayList<Country> countries) {
+    public CountryAdapter(List<CountryEntity> countries) {
         this.countries = countries;
+    }
+
+    public void updateList(List<CountryEntity> newList) {
+        this.countries = newList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -52,7 +57,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
             this.binding = binding;
         }
 
-        void bind(Country country) {
+        void bind(CountryEntity country) {
             binding.setCountry(country);
             binding.executePendingBindings();
 

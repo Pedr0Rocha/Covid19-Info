@@ -1,15 +1,13 @@
 package com.pedrorocha.covid19info.data.network.responses;
 
 
-import com.pedrorocha.covid19info.data.model.Country;
-
-import java.util.List;
+import com.google.gson.JsonArray;
 
 public class CountryResponse {
 
-    List<Country> countries;
+    JsonArray countries;
 
-    public List<Country> getCountries() {
+    public JsonArray getCountries() {
         return countries;
     }
 }

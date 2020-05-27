@@ -8,9 +8,8 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
-import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.ui.country.CountryFragment;
-import com.pedrorocha.covid19info.ui.main.MainFragment;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openCountryPage(Country country) {
+    public void openCountryPage(CountryEntity country) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.BUNDLE_COUNTRY_SLUG, country.getSlug());
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void addToFavorites(Country country) {
+    public void addToFavorites(CountryEntity country) {
         Snackbar.make(
                 findViewById(android.R.id.content),
                 getResources().getString(R.string.added_to_favorites, country.getName()),

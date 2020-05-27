@@ -6,12 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.local.CountryDao;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
-import com.pedrorocha.covid19info.data.network.responses.CountryResponse;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
-import com.pedrorocha.covid19info.utils.AbsentLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +22,23 @@ import retrofit2.Call;
 public class CountryRepository {
 
     private final CovidService covidService;
+    private final CountryDao countryDao;
 
     @Inject
-    public CountryRepository(CovidService covidService) {
+    public CountryRepository(CovidService covidService, CountryDao countryDao) {
         this.covidService = covidService;
+        this.countryDao = countryDao;
     }
 
-    public LiveData<ArrayList<Country>> getMockAvailableCountries() {
-        final MutableLiveData<ArrayList<Country>> mockAvailableCountries = new MutableLiveData<>();
+    public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
+        final MutableLiveData<ArrayList<CountryEntity>> mockAvailableCountries = new MutableLiveData<>();
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            ArrayList<Country> mock = new ArrayList<>();
-            mock.add(new Country("Brazil", "brazil", "BR"));
-            mock.add(new Country("Canada", "canada", "CA"));
-            mock.add(new Country("United States", "united-states", "US"));
+            ArrayList<CountryEntity> mock = new ArrayList<>();
+            mock.add(new CountryEntity("Brazil", "brazil", "BR"));
+            mock.add(new CountryEntity("Canada", "canada", "CA"));
+            mock.add(new CountryEntity("United States", "united-states", "US"));
 
             mockAvailableCountries.setValue(mock);
         }, 1500);
@@ -45,26 +46,27 @@ public class CountryRepository {
         return mockAvailableCountries;
     }
 
-    public LiveData<Resource<List<Country>>> getCountries() {
-        return new NetworkBoundResource<List<Country>, List<Country>>() {
+    public LiveData<Resource<List<CountryEntity>>> getCountries() {
+        return new NetworkBoundResource<List<CountryEntity>, List<CountryEntity>>() {
 
             @Override
-            protected void saveCallResult(@NonNull List<Country> item) {
-                // TODO - save countries (ROOM)
+            protected void saveCallResult(@NonNull List<CountryEntity> item) {
+                if (item.isEmpty()) return;
+                countryDao.insertAll(item);
             }
 
             @NonNull
             @Override
-            protected LiveData<List<Country>> loadFromDb() {
-                // TODO - load countries (ROOM)
-                return AbsentLiveData.create();
+            protected LiveData<List<CountryEntity>> loadFromDb() {
+                return countryDao.getAll();
             }
 
             @NonNull
             @Override
-            protected Call<List<Country>> createCall() {
+            protected Call<List<CountryEntity>> createCall() {
                 return covidService.getCountries();
             }
+
         }.getAsLiveData();
     }
 }

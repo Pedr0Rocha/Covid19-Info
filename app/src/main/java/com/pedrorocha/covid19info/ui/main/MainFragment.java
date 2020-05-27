@@ -17,9 +17,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.adapters.CountryAdapter;
-import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -65,41 +66,42 @@ public class MainFragment extends Fragment {
     private void setupAvailableCountries() {
         binding.loaderAvailableCountries.setVisibility(View.VISIBLE);
 
-        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countries -> {
-            if (countries == null) return;
-
-            binding.loaderAvailableCountries.setVisibility(View.GONE);
-
-            CountryAdapter adapter = new CountryAdapter(countries);
-            binding.rvAvailableCountries.setAdapter(adapter);
-        });
-
-        mViewModel.testingRequest().observe(getViewLifecycleOwner(), countryResource -> {
+        mViewModel.getAvailableCountries().observe(getViewLifecycleOwner(), countryResource -> {
             if (countryResource.loading()) {
+                if (countryResource.data != null) {
+                    setupCountryAdapter(countryResource.data);
+                }
                 return;
             }
 
             binding.loaderAvailableCountries.setVisibility(View.GONE);
 
             if (countryResource.error()) {
-                Snackbar.make(
-                        binding.getRoot(),
-                        "Failed loading countries",
-                        Snackbar.LENGTH_SHORT
-                );
+                showSnackbar("Failed to download countries");
                 return;
             }
 
             if (countryResource.success()) {
-                List<Country> contries = countryResource.data;
-                Snackbar.make(
-                        binding.getRoot(),
-                        "Downloaded countries",
-                        Snackbar.LENGTH_SHORT
-                );
+                if (countryResource.data == null) {
+                    showSnackbar("Error rendering country list");
+                    return;
+                }
+                setupCountryAdapter(countryResource.data);
             }
         });
     }
 
+    private void setupCountryAdapter(List<CountryEntity> countries) {
+        if (binding.rvAvailableCountries.getAdapter() == null) {
+            CountryAdapter adapter = new CountryAdapter(countries);
+            binding.rvAvailableCountries.setAdapter(adapter);
+        } else {
+            ((CountryAdapter) binding.rvAvailableCountries.getAdapter()).updateList(countries);
+        }
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+    }
 
 }

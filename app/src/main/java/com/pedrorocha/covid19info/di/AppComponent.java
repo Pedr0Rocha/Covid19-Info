@@ -12,7 +12,8 @@ import dagger.Component;
 
 @Component(modules = {
         NetworkModule.class,
-        AppModule.class
+        AppModule.class,
+        LocalStorageModule.class
 })
 @Singleton
 public interface AppComponent {
