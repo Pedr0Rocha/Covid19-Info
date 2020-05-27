@@ -1,5 +1,6 @@
 package com.pedrorocha.covid19info.data.local;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 public class CountryEntity {
 
     @SerializedName("ISO2")
+    @NonNull
     @PrimaryKey private String ISO2;
     @SerializedName("Country")
     private String name;
