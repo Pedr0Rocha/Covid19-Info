@@ -2,7 +2,7 @@ package com.pedrorocha.covid19info.di;
 
 import android.app.Application;
 
-import com.pedrorocha.covid19info.MainActivity;
+import com.pedrorocha.covid19info.ui.main.MainActivity;
 import com.pedrorocha.covid19info.ui.country.CountryFragment;
 import com.pedrorocha.covid19info.ui.main.MainFragment;
 

@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.pedrorocha.covid19info.data.model.Country;
 import com.pedrorocha.covid19info.data.network.Resource;
+import com.pedrorocha.covid19info.data.network.responses.CountryResponse;
 import com.pedrorocha.covid19info.data.repositories.CountryRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,7 +27,7 @@ public class MainViewModel extends ViewModel {
         return countryRepository.getMockAvailableCountries();
     }
 
-    public LiveData<Resource<Country>> testingRequest() {
+    public LiveData<Resource<List<Country>>> testingRequest() {
         return countryRepository.getCountries();
     }
 }

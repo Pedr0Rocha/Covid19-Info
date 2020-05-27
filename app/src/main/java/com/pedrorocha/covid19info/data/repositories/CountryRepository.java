@@ -14,6 +14,7 @@ import com.pedrorocha.covid19info.data.network.services.CovidService;
 import com.pedrorocha.covid19info.utils.AbsentLiveData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,24 +45,24 @@ public class CountryRepository {
         return mockAvailableCountries;
     }
 
-    public LiveData<Resource<Country>> getCountries() {
-        return new NetworkBoundResource<Country, CountryResponse>() {
+    public LiveData<Resource<List<Country>>> getCountries() {
+        return new NetworkBoundResource<List<Country>, List<Country>>() {
 
             @Override
-            protected void saveCallResult(@NonNull CountryResponse item) {
+            protected void saveCallResult(@NonNull List<Country> item) {
                 // TODO - save countries (ROOM)
             }
 
             @NonNull
             @Override
-            protected LiveData<Country> loadFromDb() {
+            protected LiveData<List<Country>> loadFromDb() {
                 // TODO - load countries (ROOM)
                 return AbsentLiveData.create();
             }
 
             @NonNull
             @Override
-            protected Call<CountryResponse> createCall() {
+            protected Call<List<Country>> createCall() {
                 return covidService.getCountries();
             }
         }.getAsLiveData();
