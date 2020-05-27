@@ -20,7 +20,6 @@ import com.pedrorocha.covid19info.adapters.CountryAdapter;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.databinding.MainFragmentBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -98,6 +97,10 @@ public class MainFragment extends Fragment {
         } else {
             ((CountryAdapter) binding.rvAvailableCountries.getAdapter()).updateList(countries);
         }
+
+        binding.tvAvailableCountries.setText(
+                getString(R.string.home_available_countries, countries.size())
+        );
     }
 
     private void showSnackbar(String message) {
