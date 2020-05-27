@@ -14,4 +14,4 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [ ] Repository Pattern
 - [x] Observer Pattern
 - [ ] Retrofit2 (Gson, OkHttp3)
-- [ ] Dependency Injection
+- [x] Dependency Injection
