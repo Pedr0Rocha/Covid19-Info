@@ -15,3 +15,4 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] Observer Pattern
 - [ ] Retrofit2 (Gson, OkHttp3)
 - [x] Dependency Injection
+- [ ] Work Manager
