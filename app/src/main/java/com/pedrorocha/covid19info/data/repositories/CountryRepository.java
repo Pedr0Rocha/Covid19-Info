@@ -2,16 +2,31 @@ package com.pedrorocha.covid19info.data.repositories;
 
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.pedrorocha.covid19info.data.model.Country;
+import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
+import com.pedrorocha.covid19info.data.network.Resource;
+import com.pedrorocha.covid19info.data.network.responses.CountryResponse;
+import com.pedrorocha.covid19info.data.network.services.CovidService;
+import com.pedrorocha.covid19info.utils.AbsentLiveData;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import retrofit2.Call;
+
 public class CountryRepository {
 
-    public CountryRepository() {}
+    private final CovidService covidService;
+
+    @Inject
+    public CountryRepository(CovidService covidService) {
+        this.covidService = covidService;
+    }
 
     public LiveData<ArrayList<Country>> getMockAvailableCountries() {
         final MutableLiveData<ArrayList<Country>> mockAvailableCountries = new MutableLiveData<>();
@@ -29,5 +44,26 @@ public class CountryRepository {
         return mockAvailableCountries;
     }
 
-    public LiveData<>
+    public LiveData<Resource<Country>> getCountries() {
+        return new NetworkBoundResource<Country, CountryResponse>() {
+
+            @Override
+            protected void saveCallResult(@NonNull CountryResponse item) {
+                // TODO - save countries (ROOM)
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<Country> loadFromDb() {
+                // TODO - load countries (ROOM)
+                return AbsentLiveData.create();
+            }
+
+            @NonNull
+            @Override
+            protected Call<CountryResponse> createCall() {
+                return covidService.getCountries();
+            }
+        }.getAsLiveData();
+    }
 }

@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ((CovidApplication) getApplicationContext()).app.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 

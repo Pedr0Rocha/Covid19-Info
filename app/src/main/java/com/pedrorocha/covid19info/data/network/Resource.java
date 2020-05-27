@@ -54,4 +54,16 @@ public class Resource<T> {
     public static <T> Resource<T> loading(@Nullable T data) {
         return new Resource<>(LOADING, data, null);
     }
+
+    public boolean loading() {
+        return status == LOADING;
+    }
+
+    public boolean success() {
+        return status == SUCCESS;
+    }
+
+    public boolean error() {
+        return status == ERROR;
+    }
 }
