@@ -14,6 +14,7 @@ public class AppConstants {
     }
 
     public static class SHARED_PREFS_KEYS {
+        public static String FAVORITES = "favorites";
         public static String COUNTRIES_LAST_UPDATE = "countries_last_update";
     }
 

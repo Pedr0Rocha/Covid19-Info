@@ -59,7 +59,16 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setupFavorites();
+
         setupAvailableCountries();
+    }
+
+    private void setupFavorites() {
+        mViewModel.getFavorites().observe(getViewLifecycleOwner(), favorites -> {
+            setupFavoritesAdapter(favorites);
+        });
     }
 
     private void setupAvailableCountries() {
@@ -112,10 +121,26 @@ public class MainFragment extends Fragment {
         );
     }
 
+    private void setupFavoritesAdapter(List<CountryEntity> favorites) {
+        if (binding.rvFavorites.getAdapter() == null) {
+            CountryAdapter adapter = new CountryAdapter(favorites) {
+                @Override
+                public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
+                    return v -> toggleFavorite(country);
+                }
+            };
+            binding.rvFavorites.setAdapter(adapter);
+        } else {
+            ((CountryAdapter) binding.rvFavorites.getAdapter()).updateList(favorites);
+        }
+
+        binding.tvFavorites.setText(
+                getString(R.string.home_favorites, favorites.size())
+        );
+    }
+
     private void toggleFavorite(CountryEntity country) {
         mViewModel.toggleFavorite(country);
-
-        // TODO - update adapters
     }
 
     private void showSnackbar(String message) {

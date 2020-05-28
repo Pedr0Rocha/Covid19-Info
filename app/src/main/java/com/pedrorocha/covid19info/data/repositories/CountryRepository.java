@@ -103,12 +103,18 @@ public class CountryRepository {
         return sharedPreferenceUtils.readDate(SHARED_PREFS_KEYS.COUNTRIES_LAST_UPDATE);
     }
 
+    public List<CountryEntity> getFavorites() {
+        return sharedPreferenceUtils.getFavorites();
+    }
+
     /* NOTES - Kotlin Coroutine */
     public void addToFavorites(CountryEntity country) {
+        sharedPreferenceUtils.saveFavorite(country);
         executor.execute(() -> countryDao.updateFavorite(1, country.getISO2()));
     }
 
     public void removeFromFavorites(CountryEntity country) {
+        sharedPreferenceUtils.removeFavorite(country);
         executor.execute(() -> countryDao.updateFavorite(0, country.getISO2()));
     }
 }
