@@ -76,15 +76,19 @@ public class MainFragment extends Fragment {
             binding.loaderAvailableCountries.setVisibility(View.GONE);
 
             if (countryResource.error()) {
-                showSnackbar("Failed to download countries");
+                showSnackbar(getString(R.string.error_downloading_countries));
                 return;
             }
 
             if (countryResource.success()) {
                 if (countryResource.data == null) {
-                    showSnackbar("Error rendering country list");
+                    showSnackbar(getString(R.string.error_rendering_countries));
                     return;
                 }
+                binding.tvLastUpdated.setText(
+                        getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
+                );
+
                 setupCountryAdapter(countryResource.data);
             }
         });

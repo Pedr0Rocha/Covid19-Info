@@ -7,7 +7,9 @@ import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.repositories.CountryRepository;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,5 +30,12 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
         return countryRepository.getCountries();
+    }
+
+    public String getCountryLastUpdated() {
+        Date lastUpdatedAt = countryRepository.getCountryLastUpdated();
+        return DateFormat
+                .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
+                .format(lastUpdatedAt);
     }
 }
