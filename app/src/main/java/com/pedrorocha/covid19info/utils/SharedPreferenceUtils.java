@@ -25,4 +25,8 @@ public class SharedPreferenceUtils {
     public Date readDate(String key) {
         return new Date(sharedPreferences.getLong(key, 0));
     }
+
+    public void deleteAll() {
+        sharedPreferences.edit().clear().apply();
+    }
 }

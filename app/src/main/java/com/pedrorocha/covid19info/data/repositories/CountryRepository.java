@@ -12,7 +12,7 @@ import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
-import com.pedrorocha.covid19info.utils.AppConstants.SHARED_PREFERENCES_KEYS;
+import com.pedrorocha.covid19info.utils.AppConstants.SHARED_PREFS_KEYS;
 import com.pedrorocha.covid19info.utils.AppConstants.FETCH_COOLDOWNS;
 import com.pedrorocha.covid19info.utils.SharedPreferenceUtils;
 
@@ -63,7 +63,7 @@ public class CountryRepository {
             protected void saveCallResult(@NonNull List<CountryEntity> item) {
                 if (item.isEmpty()) return;
                 countryDao.insertAll(item);
-                sharedPreferenceUtils.saveDate(SHARED_PREFERENCES_KEYS.COUNTRIES_LAST_DOWNLOADED);
+                sharedPreferenceUtils.saveDate(SHARED_PREFS_KEYS.COUNTRIES_LAST_UPDATE);
             }
 
             @NonNull
@@ -80,17 +80,21 @@ public class CountryRepository {
 
             @Override
             protected boolean shouldFetch(@Nullable List<CountryEntity> data) {
-                Date dateLastDownloaded = sharedPreferenceUtils.readDate(
-                        SHARED_PREFERENCES_KEYS.COUNTRIES_LAST_DOWNLOADED
+                Date lastUpdatedAt = sharedPreferenceUtils.readDate(
+                        SHARED_PREFS_KEYS.COUNTRIES_LAST_UPDATE
                 );
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dateLastDownloaded);
+                calendar.setTime(lastUpdatedAt);
                 calendar.add(FETCH_COOLDOWNS.COUNTRIES_METRIC, FETCH_COOLDOWNS.COUNTRIES_VALUE);
 
                 return new Date().after(calendar.getTime());
             }
 
         }.getAsLiveData();
+    }
+
+    public Date getCountryLastUpdated() {
+        return sharedPreferenceUtils.readDate(SHARED_PREFS_KEYS.COUNTRIES_LAST_UPDATE);
     }
 }

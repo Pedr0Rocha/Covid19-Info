@@ -13,8 +13,8 @@ public class AppConstants {
         public static int COUNTRIES_VALUE = 24;
     }
 
-    public static class SHARED_PREFERENCES_KEYS {
-        public static String COUNTRIES_LAST_DOWNLOADED = "countries_last_downloaded";
+    public static class SHARED_PREFS_KEYS {
+        public static String COUNTRIES_LAST_UPDATE = "countries_last_update";
     }
 
 }

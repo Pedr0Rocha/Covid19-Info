@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="last updated at 24/05 22:25"
+            android:text="@string/home_last_updated_placeholder"
             tools:ignore="HardcodedText" />
 
         <TextView
