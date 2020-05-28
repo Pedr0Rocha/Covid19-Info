@@ -20,7 +20,7 @@ public class MainViewModel extends ViewModel {
     CountryRepository countryRepository;
 
     @Inject
-    public MainViewModel(CountryRepository countryRepository) {
+    MainViewModel(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }
 
@@ -28,14 +28,19 @@ public class MainViewModel extends ViewModel {
         return countryRepository.getMockAvailableCountries();
     }
 
-    public LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
+    LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
         return countryRepository.getCountries();
     }
 
-    public String getCountryLastUpdated() {
+    String getCountryLastUpdated() {
         Date lastUpdatedAt = countryRepository.getCountryLastUpdated();
         return DateFormat
                 .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
                 .format(lastUpdatedAt);
+    }
+
+    void toggleFavorite(CountryEntity country) {
+        if (country.isFavorite()) countryRepository.removeFromFavorites(country);
+        else countryRepository.addToFavorites(country);
     }
 }

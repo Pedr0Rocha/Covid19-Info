@@ -85,18 +85,23 @@ public class MainFragment extends Fragment {
                     showSnackbar(getString(R.string.error_rendering_countries));
                     return;
                 }
-                binding.tvLastUpdated.setText(
-                        getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
-                );
-
                 setupCountryAdapter(countryResource.data);
             }
+
+            binding.tvLastUpdated.setText(
+                    getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
+            );
         });
     }
 
     private void setupCountryAdapter(List<CountryEntity> countries) {
         if (binding.rvAvailableCountries.getAdapter() == null) {
-            CountryAdapter adapter = new CountryAdapter(countries);
+            CountryAdapter adapter = new CountryAdapter(countries) {
+                @Override
+                public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
+                    return v -> toggleFavorite(country);
+                }
+            };
             binding.rvAvailableCountries.setAdapter(adapter);
         } else {
             ((CountryAdapter) binding.rvAvailableCountries.getAdapter()).updateList(countries);
@@ -105,6 +110,12 @@ public class MainFragment extends Fragment {
         binding.tvAvailableCountries.setText(
                 getString(R.string.home_available_countries, countries.size())
         );
+    }
+
+    private void toggleFavorite(CountryEntity country) {
+        mViewModel.toggleFavorite(country);
+
+        // TODO - update adapters
     }
 
     private void showSnackbar(String message) {

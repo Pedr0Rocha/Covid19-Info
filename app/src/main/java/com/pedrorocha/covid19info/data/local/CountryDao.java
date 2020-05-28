@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface CountryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<CountryEntity> countryEntities);
 
+    @Query("UPDATE countries SET favorite = :favorite WHERE ISO2 = :ISO2")
+    void updateFavorite(int favorite, String ISO2);
 }

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.pedrorocha.covid19info.data.local.CountryDao;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -30,14 +32,17 @@ public class CountryRepository {
     private final CovidService covidService;
     private final CountryDao countryDao;
     private final SharedPreferenceUtils sharedPreferenceUtils;
+    private final Executor executor;
 
     @Inject
     public CountryRepository(CovidService covidService,
                              CountryDao countryDao,
-                             SharedPreferenceUtils sharedPreferenceUtils) {
+                             SharedPreferenceUtils sharedPreferenceUtils,
+                             Executor executor) {
         this.covidService = covidService;
         this.countryDao = countryDao;
         this.sharedPreferenceUtils = sharedPreferenceUtils;
+        this.executor = executor;
     }
 
     public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
@@ -96,5 +101,14 @@ public class CountryRepository {
 
     public Date getCountryLastUpdated() {
         return sharedPreferenceUtils.readDate(SHARED_PREFS_KEYS.COUNTRIES_LAST_UPDATE);
+    }
+
+    /* NOTES - Kotlin Coroutine */
+    public void addToFavorites(CountryEntity country) {
+        executor.execute(() -> countryDao.updateFavorite(1, country.getISO2()));
+    }
+
+    public void removeFromFavorites(CountryEntity country) {
+        executor.execute(() -> countryDao.updateFavorite(0, country.getISO2()));
     }
 }
