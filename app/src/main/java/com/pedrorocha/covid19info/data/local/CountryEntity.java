@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "countries")
-public class CountryEntity {
+public class CountryEntity implements Comparable<CountryEntity> {
 
     @SerializedName("ISO2")
     @NonNull
@@ -43,5 +43,21 @@ public class CountryEntity {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    @Override
+    public int compareTo(CountryEntity o) {
+        if (isFavorite() && !o.isFavorite()) return -1;
+        if (!isFavorite() && o.isFavorite()) return 1;
+
+        return name.compareTo(o.name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!CountryEntity.class.isAssignableFrom(obj.getClass())) return false;
+
+        return ((CountryEntity) obj).getISO2().equals(this.ISO2);
     }
 }

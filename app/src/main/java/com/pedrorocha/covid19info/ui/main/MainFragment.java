@@ -59,7 +59,15 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setupFavorites();
+
         setupAvailableCountries();
+    }
+
+    private void setupFavorites() {
+        /* Uncomment if UI for favorites is implemented */
+//        mViewModel.getFavorites().observe(getViewLifecycleOwner(), this::setupFavoritesAdapter);
     }
 
     private void setupAvailableCountries() {
@@ -85,18 +93,23 @@ public class MainFragment extends Fragment {
                     showSnackbar(getString(R.string.error_rendering_countries));
                     return;
                 }
-                binding.tvLastUpdated.setText(
-                        getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
-                );
-
                 setupCountryAdapter(countryResource.data);
             }
+
+            binding.tvLastUpdated.setText(
+                    getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
+            );
         });
     }
 
     private void setupCountryAdapter(List<CountryEntity> countries) {
         if (binding.rvAvailableCountries.getAdapter() == null) {
-            CountryAdapter adapter = new CountryAdapter(countries);
+            CountryAdapter adapter = new CountryAdapter(countries) {
+                @Override
+                public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
+                    return v -> toggleFavorite(country);
+                }
+            };
             binding.rvAvailableCountries.setAdapter(adapter);
         } else {
             ((CountryAdapter) binding.rvAvailableCountries.getAdapter()).updateList(countries);
@@ -105,6 +118,28 @@ public class MainFragment extends Fragment {
         binding.tvAvailableCountries.setText(
                 getString(R.string.home_available_countries, countries.size())
         );
+    }
+
+    private void setupFavoritesAdapter(List<CountryEntity> favorites) {
+        if (binding.rvFavorites.getAdapter() == null) {
+            CountryAdapter adapter = new CountryAdapter(favorites) {
+                @Override
+                public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
+                    return v -> toggleFavorite(country);
+                }
+            };
+            binding.rvFavorites.setAdapter(adapter);
+        } else {
+            ((CountryAdapter) binding.rvFavorites.getAdapter()).updateList(favorites);
+        }
+
+        binding.tvFavorites.setText(
+                getString(R.string.home_favorites, favorites.size())
+        );
+    }
+
+    private void toggleFavorite(CountryEntity country) {
+        mViewModel.toggleFavorite(country);
     }
 
     private void showSnackbar(String message) {

@@ -1,6 +1,7 @@
 package com.pedrorocha.covid19info.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.pedrorocha.covid19info.utils.AppConstants;
 
 public class MainActivity extends AppCompatActivity {
 
+    Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ((CovidApplication) getApplicationContext()).app.inject(this);
@@ -21,10 +24,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
         if (savedInstanceState == null) {
+            MainFragment mainFragment = MainFragment.newInstance();
+
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, mainFragment)
                     .commit();
+
+            currentFragment = mainFragment;
         }
     }
 
@@ -41,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, countryFragment)
                 .addToBackStack(null)
                 .commit();
+
+        currentFragment = countryFragment;
     }
 
     public void addToFavorites(CountryEntity country) {

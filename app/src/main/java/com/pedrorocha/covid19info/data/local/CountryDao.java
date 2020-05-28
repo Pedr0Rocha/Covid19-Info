@@ -27,7 +27,10 @@ public interface CountryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(CountryEntity country);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    /* Strategy set to IGNORE because fetching from API resets the favorite attribute */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(List<CountryEntity> countryEntities);
 
+    @Query("UPDATE countries SET favorite = :favorite WHERE ISO2 = :ISO2")
+    void updateFavorite(int favorite, String ISO2);
 }

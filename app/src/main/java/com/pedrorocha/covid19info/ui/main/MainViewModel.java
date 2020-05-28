@@ -1,6 +1,7 @@
 package com.pedrorocha.covid19info.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pedrorocha.covid19info.data.local.CountryEntity;
@@ -19,23 +20,34 @@ public class MainViewModel extends ViewModel {
     @Inject
     CountryRepository countryRepository;
 
+    MutableLiveData<List<CountryEntity>> favorites = new MutableLiveData<>();
+
     @Inject
-    public MainViewModel(CountryRepository countryRepository) {
+    MainViewModel(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
+
+        favorites.setValue(countryRepository.getFavorites());
     }
 
-    public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
-        return countryRepository.getMockAvailableCountries();
-    }
-
-    public LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
+    LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
         return countryRepository.getCountries();
     }
 
-    public String getCountryLastUpdated() {
+    public LiveData<List<CountryEntity>> getFavorites() {
+        return favorites;
+    }
+
+    String getCountryLastUpdated() {
         Date lastUpdatedAt = countryRepository.getCountryLastUpdated();
         return DateFormat
                 .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
                 .format(lastUpdatedAt);
+    }
+
+    void toggleFavorite(CountryEntity country) {
+        if (country.isFavorite()) countryRepository.removeFromFavorites(country);
+        else countryRepository.addToFavorites(country);
+
+        favorites.setValue(countryRepository.getFavorites());
     }
 }

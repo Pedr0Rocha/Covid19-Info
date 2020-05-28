@@ -3,8 +3,8 @@
 
     <string name="home_title">Covid19 Info</string>
 
-    <string name="home_favorites">Favorites</string>
-    <string name="home_available_countries">Available Countries (%1$d)</string>
+    <string name="home_favorites">Favorites (%1$d)</string>
+    <string name="home_available_countries">Countries (%1$d)</string>
     <string name="home_last_updated">last updated at %1$s</string>
     <string name="home_last_updated_placeholder">updating…</string>
 
