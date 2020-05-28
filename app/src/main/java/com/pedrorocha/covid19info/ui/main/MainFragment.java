@@ -66,9 +66,8 @@ public class MainFragment extends Fragment {
     }
 
     private void setupFavorites() {
-        mViewModel.getFavorites().observe(getViewLifecycleOwner(), favorites -> {
-            setupFavoritesAdapter(favorites);
-        });
+        /* Uncomment if UI for favorites is implemented */
+//        mViewModel.getFavorites().observe(getViewLifecycleOwner(), this::setupFavoritesAdapter);
     }
 
     private void setupAvailableCountries() {

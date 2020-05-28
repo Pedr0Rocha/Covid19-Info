@@ -29,10 +29,6 @@ public class MainViewModel extends ViewModel {
         favorites.setValue(countryRepository.getFavorites());
     }
 
-    public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
-        return countryRepository.getMockAvailableCountries();
-    }
-
     LiveData<Resource<List<CountryEntity>>> getAvailableCountries() {
         return countryRepository.getCountries();
     }

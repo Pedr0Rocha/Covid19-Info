@@ -45,22 +45,6 @@ public class CountryRepository {
         this.executor = executor;
     }
 
-    public LiveData<ArrayList<CountryEntity>> getMockAvailableCountries() {
-        final MutableLiveData<ArrayList<CountryEntity>> mockAvailableCountries = new MutableLiveData<>();
-
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            ArrayList<CountryEntity> mock = new ArrayList<>();
-            mock.add(new CountryEntity("Brazil", "brazil", "BR"));
-            mock.add(new CountryEntity("Canada", "canada", "CA"));
-            mock.add(new CountryEntity("United States", "united-states", "US"));
-
-            mockAvailableCountries.setValue(mock);
-        }, 1500);
-
-        return mockAvailableCountries;
-    }
-
     public LiveData<Resource<List<CountryEntity>>> getCountries() {
         return new NetworkBoundResource<List<CountryEntity>, List<CountryEntity>>() {
 
@@ -107,7 +91,7 @@ public class CountryRepository {
         return sharedPreferenceUtils.getFavorites();
     }
 
-    /* NOTES - Kotlin Coroutine */
+    /* NOTES - Kotlin Coroutine to substitute executor */
     public void addToFavorites(CountryEntity country) {
         sharedPreferenceUtils.saveFavorite(country);
         executor.execute(() -> countryDao.updateFavorite(1, country.getISO2()));
