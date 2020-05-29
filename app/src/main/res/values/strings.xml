@@ -20,4 +20,7 @@
     <string name="country_cases_deaths">Deaths:</string>
 
     <string name="added_to_favorites">%1$s added to favorites</string>
+    <string name="removed_from_favorites">%1$s removed from favorites</string>
+
+    <string name="action_undo">undo</string>
 </resources>

@@ -140,6 +140,16 @@ public class MainFragment extends Fragment {
 
     private void toggleFavorite(CountryEntity country) {
         mViewModel.toggleFavorite(country);
+
+        String snackbarText = country.isFavorite() ?
+                getString(R.string.removed_from_favorites, country.getName()) :
+                getString(R.string.added_to_favorites, country.getName());
+
+        Snackbar.make(binding.getRoot(), snackbarText, Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.action_undo), v -> {
+                    country.setFavorite(!country.isFavorite());
+                    toggleFavorite(country);
+                }).show();
     }
 
     private void showSnackbar(String message) {
