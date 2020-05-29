@@ -1,23 +1,22 @@
 package com.pedrorocha.covid19info.data.repositories;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.internal.$Gson$Preconditions;
 import com.pedrorocha.covid19info.data.local.CountryDao;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
+import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
+import com.pedrorocha.covid19info.data.network.responses.CovidInfoResponse;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
+import com.pedrorocha.covid19info.utils.AbsentLiveData;
 import com.pedrorocha.covid19info.utils.AppConstants.SHARED_PREFS_KEYS;
 import com.pedrorocha.covid19info.utils.AppConstants.FETCH_COOLDOWNS;
+import com.pedrorocha.covid19info.utils.DateUtils;
 import com.pedrorocha.covid19info.utils.SharedPreferenceUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -81,6 +80,10 @@ public class CountryRepository {
             }
 
         }.getAsLiveData();
+    }
+
+    public LiveData<CountryEntity> getCountry(String ISO2) {
+        return countryDao.get(ISO2);
     }
 
     public Date getCountryLastUpdated() {

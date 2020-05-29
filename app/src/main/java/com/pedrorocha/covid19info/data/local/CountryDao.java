@@ -13,7 +13,7 @@ import java.util.List;
 public interface CountryDao {
 
     @Query("SELECT * FROM countries WHERE ISO2 = :ISO2")
-    CountryEntity get(String ISO2);
+    LiveData<CountryEntity> get(String ISO2);
 
     @Query("SELECT * FROM countries")
     LiveData<List<CountryEntity>> getAll();

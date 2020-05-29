@@ -97,7 +97,7 @@ public class MainFragment extends Fragment {
             }
 
             binding.tvLastUpdated.setText(
-                    getString(R.string.home_last_updated, mViewModel.getCountryLastUpdated())
+                    getString(R.string.label_last_updated, mViewModel.getCountryLastUpdated())
             );
         });
     }

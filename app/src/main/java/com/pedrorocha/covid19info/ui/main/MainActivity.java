@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openCountryPage(CountryEntity country) {
         Bundle bundle = new Bundle();
-        bundle.putString(AppConstants.BUNDLE_COUNTRY_SLUG, country.getSlug());
+        bundle.putString(AppConstants.BUNDLE_COUNTRY_ISO2, country.getISO2());
 
         CountryFragment countryFragment = CountryFragment.newInstance();
         countryFragment.setArguments(bundle);

@@ -4,8 +4,12 @@
 
     <data>
         <variable
+            name="country"
+            type="com.pedrorocha.covid19info.data.local.CountryEntity">
+        </variable>
+        <variable
             name="countryCovidInfo"
-            type="com.pedrorocha.covid19info.data.model.CountryCovidInfo">
+            type="com.pedrorocha.covid19info.data.local.CovidInfoEntity">
         </variable>
     </data>
 
@@ -26,7 +30,7 @@
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:contentDescription="@string/favorite_icon_content_description"
-                android:src="@drawable/ic_favorite"
+                android:src="@{country.favorite ? @drawable/ic_favorite : @drawable/ic_favorite_empty}"
                 android:tint="@color/colorAccent" />
 
             <TextView
@@ -37,9 +41,16 @@
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryText"
-                android:text="@{countryCovidInfo.country.name}" />
+                android:text="@{country.name}" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loader_covid_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,6 +58,13 @@
             android:layout_marginTop="@dimen/space_medium"
             android:text="@string/country_cases"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_last_updated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{countryCovidInfo == null ? @string/empty : countryCovidInfo.lastUpdatedFormatted}"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.confirmed.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.confirmed)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -86,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.recovered.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.recovered)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -108,13 +126,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.deaths.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.deaths)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/tv_last_downloaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_last_updated_placeholder"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_large"
+            android:gravity="center"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </layout>

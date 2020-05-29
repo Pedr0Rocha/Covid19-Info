@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import androidx.room.Room;
 
 import com.pedrorocha.covid19info.data.local.CountryDao;
+import com.pedrorocha.covid19info.data.local.CovidInfoDao;
 import com.pedrorocha.covid19info.data.local.LocalDatabase;
 
 import javax.inject.Singleton;
@@ -29,8 +30,14 @@ public class LocalStorageModule {
 
     @Singleton
     @Provides
-    CountryDao providesDriverDao(LocalDatabase database) {
+    CountryDao providesCountryDao(LocalDatabase database) {
         return database.getCountryDao();
+    }
+
+    @Singleton
+    @Provides
+    CovidInfoDao providesCovidInfoDao(LocalDatabase database) {
+        return database.getCovidInfoDao();
     }
 
     @Provides
