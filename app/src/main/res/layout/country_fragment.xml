@@ -5,7 +5,7 @@
     <data>
         <variable
             name="countryCovidInfo"
-            type="com.pedrorocha.covid19info.data.model.CountryCovidInfo">
+            type="com.pedrorocha.covid19info.data.local.CovidInfoEntity">
         </variable>
     </data>
 
@@ -37,7 +37,7 @@
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryText"
-                android:text="@{countryCovidInfo.country.name}" />
+                android:text="@{countryCovidInfo.countryName}" />
 
         </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.last.confirmed)}"
+                android:text="@{String.valueOf(countryCovidInfo.confirmed)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.last.recovered)}"
+                android:text="@{String.valueOf(countryCovidInfo.recovered)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.last.deaths)}"
+                android:text="@{String.valueOf(countryCovidInfo.deaths)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

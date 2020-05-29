@@ -1,8 +1,6 @@
 package com.pedrorocha.covid19info.ui.country;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,10 +15,7 @@ import android.view.ViewGroup;
 
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
-import com.pedrorocha.covid19info.data.model.CaseInfo;
-import com.pedrorocha.covid19info.data.model.CaseType;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
-import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
@@ -31,7 +26,7 @@ public class CountryFragment extends Fragment {
     @Inject
     CountryViewModel mViewModel;
 
-    private String countrySlug = "";
+    private String countryISO2 = "";
 
     private CountryFragmentBinding binding;
 
@@ -48,7 +43,7 @@ public class CountryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        countrySlug = this.getArguments().getString(AppConstants.BUNDLE_COUNTRY_SLUG);
+        countryISO2 = this.getArguments().getString(AppConstants.BUNDLE_COUNTRY_ISO2);
 
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.country_fragment,
@@ -64,22 +59,25 @@ public class CountryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel.getCovidInfo(new CountryEntity("Whatever", countrySlug, "WWA"))
-                .observe(getViewLifecycleOwner(), countryCovidInfoResource -> {
-            if (countryCovidInfoResource.loading()) return;
+        mViewModel.setISO2(countryISO2);
 
-            if (countryCovidInfoResource.error()) {
+        mViewModel.getCountry().observe(getViewLifecycleOwner(), country -> {
+            if (country == null) return;
+
+            mViewModel.setCountry(country);
+        });
+
+        mViewModel.getCovidInfo().observe(getViewLifecycleOwner(), covidInfoResource -> {
+            if (covidInfoResource.loading()) return;
+
+            if (covidInfoResource.error()) {
                 System.out.println("deu erro");
             }
 
-            if (countryCovidInfoResource.success()) {
-                System.out.println("Deu bom");
+            if (covidInfoResource.success()) {
+                binding.setCountryCovidInfo(covidInfoResource.data);
+                binding.executePendingBindings();
             }
         });
-
-//        mViewModel.getCountry().observe(getViewLifecycleOwner(), countryEntity -> {
-//            binding.setCountryCovidInfo(countryCovidInfo);
-//            binding.executePendingBindings();
-//        });
     }
 }

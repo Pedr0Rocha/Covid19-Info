@@ -1,16 +1,12 @@
 package com.pedrorocha.covid19info.data.repositories;
 
-import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.internal.$Gson$Preconditions;
 import com.pedrorocha.covid19info.data.local.CountryDao;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
-import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
+import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.network.responses.CovidInfoResponse;
@@ -21,9 +17,6 @@ import com.pedrorocha.covid19info.utils.AppConstants.FETCH_COOLDOWNS;
 import com.pedrorocha.covid19info.utils.DateUtils;
 import com.pedrorocha.covid19info.utils.SharedPreferenceUtils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,19 +32,16 @@ public class CountryRepository {
     private final CountryDao countryDao;
     private final SharedPreferenceUtils sharedPreferenceUtils;
     private final Executor executor;
-    private final DateUtils dateUtils;
 
     @Inject
     public CountryRepository(CovidService covidService,
                              CountryDao countryDao,
                              SharedPreferenceUtils sharedPreferenceUtils,
-                             Executor executor,
-                             DateUtils dateUtils) {
+                             Executor executor) {
         this.covidService = covidService;
         this.countryDao = countryDao;
         this.sharedPreferenceUtils = sharedPreferenceUtils;
         this.executor = executor;
-        this.dateUtils = dateUtils;
     }
 
     public LiveData<Resource<List<CountryEntity>>> getCountries() {
@@ -94,37 +84,6 @@ public class CountryRepository {
 
     public LiveData<CountryEntity> getCountry(String ISO2) {
         return countryDao.get(ISO2);
-    }
-
-    public LiveData<Resource<CountryCovidInfo>> getCovidInfoByCountry(CountryEntity country) {
-        return new NetworkBoundResource<CountryCovidInfo, List<CovidInfoResponse>>() {
-
-            @Override
-            protected void saveCallResult(@NonNull List<CovidInfoResponse> item) {
-                System.out.println(item);
-                if (item.isEmpty()) return;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<CountryCovidInfo> loadFromDb() {
-                return AbsentLiveData.create();
-            }
-
-            @NonNull
-            @Override
-            protected Call<List<CovidInfoResponse>> createCall() {
-                Date from = dateUtils.getDaysBefore(7);
-                Date to = new Date();
-
-                return covidService.getCovidInfoByCountry(
-                        country.getSlug(),
-                        dateUtils.formatToAPIParameters(from),
-                        dateUtils.formatToAPIParameters(to)
-                );
-            }
-
-        }.getAsLiveData();
     }
 
     public Date getCountryLastUpdated() {

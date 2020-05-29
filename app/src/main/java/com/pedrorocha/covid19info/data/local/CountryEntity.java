@@ -19,7 +19,7 @@ public class CountryEntity implements Comparable<CountryEntity> {
 
     private boolean favorite = false;
 
-    public CountryEntity(String name, String slug, String ISO2) {
+    public CountryEntity(String name, String slug, @NonNull String ISO2) {
         this.name = name;
         this.slug = slug;
         this.ISO2 = ISO2;
@@ -33,6 +33,7 @@ public class CountryEntity implements Comparable<CountryEntity> {
         return slug;
     }
 
+    @NonNull
     public String getISO2() {
         return ISO2;
     }
