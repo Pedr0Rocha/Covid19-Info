@@ -1,8 +1,10 @@
 package com.pedrorocha.covid19info.ui.country;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.model.CaseInfo;
 import com.pedrorocha.covid19info.data.model.CaseType;
@@ -21,12 +24,14 @@ import com.pedrorocha.covid19info.data.model.CountryCovidInfo;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
+import javax.inject.Inject;
+
 public class CountryFragment extends Fragment {
 
-    private CountryViewModel mViewModel;
+    @Inject
+    CountryViewModel mViewModel;
 
     private String countrySlug = "";
-    private CountryCovidInfo countryCovidInfo;
 
     private CountryFragmentBinding binding;
 
@@ -35,16 +40,15 @@ public class CountryFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        ((CovidApplication) getActivity().getApplicationContext()).app.inject(this);
+        super.onAttach(context);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         countrySlug = this.getArguments().getString(AppConstants.BUNDLE_COUNTRY_SLUG);
-
-        countryCovidInfo = new CountryCovidInfo(
-            new CountryEntity("Brazil", "brazil", "BR"),
-            new CaseInfo(CaseType.CONFIRMED, 25303),
-            new CaseInfo(CaseType.RECOVERED, 50112),
-            new CaseInfo(CaseType.DEATHS, 3503)
-        );
 
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.country_fragment,
@@ -59,9 +63,23 @@ public class CountryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(CountryViewModel.class);
 
-        binding.setCountryCovidInfo(countryCovidInfo);
-        binding.executePendingBindings();
+        mViewModel.getCovidInfo(new CountryEntity("Whatever", countrySlug, "WWA"))
+                .observe(getViewLifecycleOwner(), countryCovidInfoResource -> {
+            if (countryCovidInfoResource.loading()) return;
+
+            if (countryCovidInfoResource.error()) {
+                System.out.println("deu erro");
+            }
+
+            if (countryCovidInfoResource.success()) {
+                System.out.println("Deu bom");
+            }
+        });
+
+//        mViewModel.getCountry().observe(getViewLifecycleOwner(), countryEntity -> {
+//            binding.setCountryCovidInfo(countryCovidInfo);
+//            binding.executePendingBindings();
+//        });
     }
 }

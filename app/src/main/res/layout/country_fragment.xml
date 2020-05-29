@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.confirmed.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.last.confirmed)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.recovered.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.last.recovered)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.deaths.value)}"
+                android:text="@{String.valueOf(countryCovidInfo.last.deaths)}"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

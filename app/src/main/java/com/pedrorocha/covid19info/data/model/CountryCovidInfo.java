@@ -2,40 +2,27 @@ package com.pedrorocha.covid19info.data.model;
 
 import com.pedrorocha.covid19info.data.local.CountryEntity;
 
-import java.util.ArrayList;
-
 public class CountryCovidInfo {
 
     private CountryEntity country;
-    private CaseInfo confirmed;
-    private CaseInfo recovered;
-    private CaseInfo deaths;
-    private ArrayList<CaseInfo> weekCases;
+    private CaseInfo last;
+    private CaseInfo dayBeforeLast;
 
-    public CountryCovidInfo(CountryEntity country, CaseInfo confirmed, CaseInfo recovered, CaseInfo deaths) {
+    public CountryCovidInfo(CountryEntity country, CaseInfo last, CaseInfo dayBeforeLast) {
         this.country = country;
-        this.confirmed = confirmed;
-        this.recovered = recovered;
-        this.deaths = deaths;
+        this.last = last;
+        this.dayBeforeLast = dayBeforeLast;
     }
 
     public CountryEntity getCountry() {
         return country;
     }
 
-    public CaseInfo getConfirmed() {
-        return confirmed;
+    public CaseInfo getLast() {
+        return last;
     }
 
-    public CaseInfo getRecovered() {
-        return recovered;
-    }
-
-    public CaseInfo getDeaths() {
-        return deaths;
-    }
-
-    public ArrayList<CaseInfo> getWeekCases() {
-        return weekCases;
+    public CaseInfo getDayBeforeLast() {
+        return dayBeforeLast;
     }
 }
