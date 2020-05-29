@@ -46,6 +46,7 @@ public class CovidInfoRepository {
                 /* Insert the last item = most recent info */
                 CovidInfoEntity mostRecentInfo = item.get(item.size() - 1);
                 mostRecentInfo.setLastDownloaded(new Date());
+                mostRecentInfo.setISO2(country.getISO2());
 
                 covidInfoDao.insert(mostRecentInfo);
             }

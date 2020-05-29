@@ -15,7 +15,7 @@ public interface CovidService {
     @GET("/countries")
     Call<List<CountryEntity>> getCountries();
 
-    @GET("/country/{slug}")
+    @GET("/total/country/{slug}")
     Call<List<CovidInfoEntity>> getCovidInfoByCountry(
             @Path("slug") String slug,
             @Query("from") String from,

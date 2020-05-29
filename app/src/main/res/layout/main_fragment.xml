@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/home_last_updated_placeholder" />
+            android:text="@string/label_last_updated_placeholder" />
 
         <LinearLayout
             android:layout_width="match_parent"

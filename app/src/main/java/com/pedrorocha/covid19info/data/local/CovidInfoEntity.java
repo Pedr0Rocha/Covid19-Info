@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 @Entity(tableName = "covid_infos")
@@ -46,6 +47,10 @@ public class CovidInfoEntity {
         return countryName;
     }
 
+    public void setISO2(@NonNull String ISO2) {
+        this.ISO2 = ISO2;
+    }
+
     @NonNull
     public String getISO2() {
         return ISO2;
@@ -73,6 +78,18 @@ public class CovidInfoEntity {
 
     public Date getLastDownloaded() {
         return lastDownloaded;
+    }
+
+    public String getLastUpdatedFormatted() {
+        return DateFormat
+                .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
+                .format(lastUpdated);
+    }
+
+    public String getLastDownloadedFormatted() {
+        return DateFormat
+                .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
+                .format(lastDownloaded);
     }
 
     public void setLastDownloaded(Date lastDownloaded) {
