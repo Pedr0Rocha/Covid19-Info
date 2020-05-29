@@ -51,12 +51,4 @@ public class MainActivity extends AppCompatActivity {
 
         currentFragment = countryFragment;
     }
-
-    public void addToFavorites(CountryEntity country) {
-        Snackbar.make(
-                findViewById(android.R.id.content),
-                getResources().getString(R.string.added_to_favorites, country.getName()),
-                Snackbar.LENGTH_SHORT
-        ).show();
-    }
 }
