@@ -12,8 +12,8 @@ public class AppConstants {
         public static int COUNTRIES_METRIC = Calendar.HOUR;
         public static int COUNTRIES_VALUE = 24;
 
-        public static int COVID_INFO_METRIC = Calendar.MINUTE;
-        public static int COVID_INFO_VALUE = 10;
+        public static int COVID_INFO_METRIC = Calendar.SECOND;
+        public static int COVID_INFO_VALUE = 3;
     }
 
     public static class SHARED_PREFS_KEYS {

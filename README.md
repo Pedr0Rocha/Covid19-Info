@@ -18,4 +18,5 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] Dependency Injection
 - [x] TypeConverters
 - [x] SharedPreferences
+- [x] Internationalization
 - [ ] Work Manager

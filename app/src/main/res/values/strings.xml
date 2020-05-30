@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Covid19 Info</string>
+    <string name="app_name">Covid-19 Worldwide Info</string>
 
-    <string name="home_title">Covid19 Info</string>
+    <string name="home_title">Covid-19 Worldwide Info</string>
 
     <string name="home_favorites">Favorites (%1$d)</string>
     <string name="home_available_countries">Countries (%1$d)</string>
@@ -29,5 +29,5 @@
 
     <string name="action_undo">undo</string>
 
-    <string name="empty"></string>
+    <string name="no_data">no data</string>
 </resources>

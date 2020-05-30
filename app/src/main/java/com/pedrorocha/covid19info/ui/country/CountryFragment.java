@@ -79,6 +79,7 @@ public class CountryFragment extends Fragment {
 
             if (covidInfoResource.error()) {
                 showSnackbar(getString(R.string.error_downloading_covid_info));
+                binding.tvLastDownloaded.setText(getString(R.string.error_downloading_covid_info));
                 return;
             }
 

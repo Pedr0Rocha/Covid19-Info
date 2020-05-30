@@ -107,7 +107,7 @@ public class MainFragment extends Fragment {
             CountryAdapter adapter = new CountryAdapter(countries) {
                 @Override
                 public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
-                    return v -> toggleFavorite(country);
+                    return v -> toggleFavorite(country, false);
                 }
             };
             binding.rvAvailableCountries.setAdapter(adapter);
@@ -125,7 +125,7 @@ public class MainFragment extends Fragment {
             CountryAdapter adapter = new CountryAdapter(favorites) {
                 @Override
                 public View.OnClickListener onClickToggleFavorite(CountryEntity country) {
-                    return v -> toggleFavorite(country);
+                    return v -> toggleFavorite(country, false);
                 }
             };
             binding.rvFavorites.setAdapter(adapter);
@@ -138,17 +138,19 @@ public class MainFragment extends Fragment {
         );
     }
 
-    private void toggleFavorite(CountryEntity country) {
+    private void toggleFavorite(CountryEntity country, boolean isUndoAction) {
         mViewModel.toggleFavorite(country);
 
         String snackbarText = country.isFavorite() ?
                 getString(R.string.removed_from_favorites, country.getName()) :
                 getString(R.string.added_to_favorites, country.getName());
 
+        if (isUndoAction) return;
+
         Snackbar.make(binding.getRoot(), snackbarText, Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.action_undo), v -> {
                     country.setFavorite(!country.isFavorite());
-                    toggleFavorite(country);
+                    toggleFavorite(country, true);
                 }).show();
     }
 
