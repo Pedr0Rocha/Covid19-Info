@@ -63,15 +63,30 @@ public class CountryFragment extends Fragment {
 
         binding.loaderCovidInfo.setVisibility(View.VISIBLE);
 
+        binding.ivBtnBack.setOnClickListener(v -> {
+            if (getActivity() != null) getActivity().onBackPressed();
+        });
+
+        observeCountry();
+        observeCovidInfo();
+    }
+
+    private void observeCountry() {
         mViewModel.getCountry().observe(getViewLifecycleOwner(), country -> {
-            if (country == null) return;
+            if (country == null) {
+                showSnackbar(getString(R.string.error_opening_country_page));
+                if (getActivity() != null) getActivity().onBackPressed();
+                return;
+            }
 
             binding.setCountry(country);
             binding.executePendingBindings();
 
             mViewModel.setCountry(country);
         });
+    }
 
+    private void observeCovidInfo() {
         mViewModel.getCovidInfo().observe(getViewLifecycleOwner(), covidInfoResource -> {
             if (covidInfoResource.loading()) return;
 

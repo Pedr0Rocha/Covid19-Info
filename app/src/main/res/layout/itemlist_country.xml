@@ -16,14 +16,13 @@
         android:layout_marginHorizontal="@dimen/space_small"
         android:layout_marginVertical="@dimen/space_small"
         android:foreground="?android:attr/selectableItemBackground"
-        android:paddingHorizontal="@dimen/margin_horizontal"
-        android:paddingVertical="@dimen/margin_vertical"
         app:cardCornerRadius="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/space_medium">
+            android:paddingHorizontal="@dimen/space_medium"
+            android:paddingVertical="@dimen/space_small">
 
             <LinearLayout
                 android:id="@+id/ll_country_info"
@@ -51,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{country.slug}" />
+                    android:text="@{country.slug + ` (` + country.ISO2 + `)`}" />
 
             </LinearLayout>
 

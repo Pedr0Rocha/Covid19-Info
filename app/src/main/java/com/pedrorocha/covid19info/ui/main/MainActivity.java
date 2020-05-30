@@ -1,12 +1,12 @@
 package com.pedrorocha.covid19info.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
@@ -45,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_close_exit)
                 .replace(R.id.container, countryFragment)
                 .addToBackStack(null)
                 .commit();
-
-        currentFragment = countryFragment;
     }
 }

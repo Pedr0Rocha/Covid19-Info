@@ -15,14 +15,15 @@
     <string name="error_rendering_countries">Erro ao exibir lista de países</string>
     <string name="error_downloading_covid_info">Falha ao baixar informações</string>
     <string name="error_no_covid_info">Nenhum dado encontrado para este país</string>
+    <string name="error_opening_country_page">País não encontrado</string>
 
     <string name="favorite_icon_content_description">ícone favoritos</string>
     <string name="open_country_page_icon_content_description">ícone abrir página do país</string>
 
     <string name="country_cases">Casos</string>
-    <string name="country_cases_confirmed">Confirmados:</string>
-    <string name="country_cases_recovered">Recuperados:</string>
-    <string name="country_cases_deaths">Mortes:</string>
+    <string name="country_cases_confirmed">confirmados</string>
+    <string name="country_cases_recovered">recuperados</string>
+    <string name="country_cases_deaths">mortes</string>
 
     <string name="added_to_favorites">%1$s adicionado aos favoritos</string>
     <string name="removed_from_favorites">%1$s removido dos favoritos</string>
