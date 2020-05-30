@@ -37,11 +37,12 @@
                 android:id="@+id/tv_country_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_medium"
                 android:layout_marginLeft="@dimen/space_medium"
-                android:textSize="26sp"
-                android:textStyle="bold"
+                android:text="@{country.name}"
                 android:textColor="@color/colorPrimaryText"
-                android:text="@{country.name}" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -63,7 +64,7 @@
             android:id="@+id/tv_last_updated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{countryCovidInfo == null ? @string/empty : countryCovidInfo.lastUpdatedFormatted}"
+            android:text="@{countryCovidInfo == null ? @string/no_data : countryCovidInfo.lastUpdatedFormatted}"
             android:textSize="14sp" />
 
         <LinearLayout

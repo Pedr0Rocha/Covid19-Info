@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Covid-19 Infos Mundiais</string>
+
+    <string name="home_title">Covid19 Infos Mundiais</string>
+
+    <string name="home_favorites">Favoritos (%1$d)</string>
+    <string name="home_available_countries">Países (%1$d)</string>
+
+    <string name="label_last_updated">atualizado em %1$s</string>
+    <string name="label_last_downloaded">baixado em %1$s</string>
+    <string name="label_data_at">em %1$s</string>
+    <string name="label_last_updated_placeholder">atualizando…</string>
+
+    <string name="error_downloading_countries">Falha ao baixar países</string>
+    <string name="error_rendering_countries">Erro ao exibir lista de países</string>
+    <string name="error_downloading_covid_info">Falha ao baixar informações</string>
+    <string name="error_no_covid_info">Nenhum dado encontrado para este país</string>
+
+    <string name="favorite_icon_content_description">ícone favoritos</string>
+    <string name="open_country_page_icon_content_description">ícone abrir página do país</string>
+
+    <string name="country_cases">Casos</string>
+    <string name="country_cases_confirmed">Confirmados:</string>
+    <string name="country_cases_recovered">Recuperados:</string>
+    <string name="country_cases_deaths">Mortes:</string>
+
+    <string name="added_to_favorites">%1$s adicionado aos favoritos</string>
+    <string name="removed_from_favorites">%1$s removido dos favoritos</string>
+
+    <string name="action_undo">desfazer</string>
+
+    <string name="no_data">sem dados</string>
+</resources>

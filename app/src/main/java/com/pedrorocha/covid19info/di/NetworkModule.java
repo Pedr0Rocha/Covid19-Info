@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
 import com.pedrorocha.covid19info.utils.AppConstants;
+import com.pedrorocha.covid19info.utils.GsonUTCAdapter;
+
+import java.util.Date;
 
 import javax.inject.Singleton;
 

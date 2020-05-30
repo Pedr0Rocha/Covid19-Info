@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Entity(tableName = "covid_infos")
 public class CovidInfoEntity {
@@ -81,9 +83,14 @@ public class CovidInfoEntity {
     }
 
     public String getLastUpdatedFormatted() {
-        return DateFormat
-                .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
-                .format(lastUpdated);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(lastUpdated);
+
+        /* Convert it to UTC and format using default Locale */
+        DateFormat df = DateFormat.getDateInstance();
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        return df.format(calendar.getTime());
     }
 
     public String getLastDownloadedFormatted() {
