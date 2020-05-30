@@ -21,6 +21,8 @@ import javax.inject.Inject;
 
 import retrofit2.Call;
 
+import static com.pedrorocha.covid19info.utils.AppConstants.DOWNLOAD_INFO_FROM_DAYS_BEFORE;
+
 public class CovidInfoRepository {
 
     private final CovidService covidService;
@@ -60,7 +62,7 @@ public class CovidInfoRepository {
             @NonNull
             @Override
             protected Call<List<CovidInfoEntity>> createCall() {
-                Date from = dateUtils.getDaysBefore(7);
+                Date from = dateUtils.getDaysBefore(DOWNLOAD_INFO_FROM_DAYS_BEFORE);
                 Date to = new Date();
 
                 return covidService.getCovidInfoByCountry(

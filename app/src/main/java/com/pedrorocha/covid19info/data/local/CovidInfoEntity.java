@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 @Entity(tableName = "covid_infos")
@@ -97,6 +99,18 @@ public class CovidInfoEntity {
         return DateFormat
                 .getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
                 .format(lastDownloaded);
+    }
+
+    public String getConfirmedFormatted() {
+        return NumberFormat.getNumberInstance(Locale.getDefault()).format(confirmed);
+    }
+
+    public String getRecoveredFormatted() {
+        return NumberFormat.getNumberInstance(Locale.getDefault()).format(recovered);
+    }
+
+    public String getDeathsFormatted() {
+        return NumberFormat.getNumberInstance(Locale.getDefault()).format(deaths);
     }
 
     public void setLastDownloaded(Date lastDownloaded) {

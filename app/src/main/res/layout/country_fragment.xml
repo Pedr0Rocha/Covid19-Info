@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -21,30 +22,43 @@
         android:orientation="vertical"
         tools:context=".ui.country.CountryFragment">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/iv_btn_back"
+                android:layout_width="@dimen/icon_size_toolbar"
+                android:layout_height="@dimen/icon_size_toolbar"
+                android:contentDescription="@string/favorite_icon_content_description"
+                android:tint="@color/colorPrimaryText"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
                 android:id="@+id/iv_favorite"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
+                android:layout_width="@dimen/icon_size_toolbar"
+                android:layout_height="@dimen/icon_size_toolbar"
                 android:contentDescription="@string/favorite_icon_content_description"
                 android:src="@{country.favorite ? @drawable/ic_favorite : @drawable/ic_favorite_empty}"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <TextView
-                android:id="@+id/tv_country_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_medium"
-                android:layout_marginLeft="@dimen/space_medium"
-                android:text="@{country.name}"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="26sp"
-                android:textStyle="bold" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_country_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{country.name}"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_marginTop="@dimen/space_medium"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/loader_covid_info"
@@ -56,7 +70,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_medium"
             android:text="@string/country_cases"
             android:textSize="20sp" />
 
@@ -64,74 +77,144 @@
             android:id="@+id/tv_last_updated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_font_light"
             android:text="@{countryCovidInfo == null ? @string/no_data : countryCovidInfo.lastUpdatedFormatted}"
             android:textSize="14sp" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_large">
+            android:layout_marginTop="@dimen/space_large"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/space_small">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/country_cases_confirmed" />
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_small"
-                android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.confirmed)}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_medium">
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.confirmedFormatted)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
 
-        <LinearLayout
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/country_cases_confirmed"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_large">
+            android:layout_marginTop="@dimen/space_small"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/space_small">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_recovered"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/country_cases_recovered" />
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/space_small"
+                android:layout_marginRight="@dimen/space_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/cv_deaths"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_medium">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.recoveredFormatted)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/country_cases_recovered"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_deaths"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="@dimen/space_small"
                 android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.recovered)}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/cv_recovered">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_medium">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_large">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.deathsFormatted)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/country_cases_deaths" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/country_cases_deaths"
+                        android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_small"
-                android:layout_marginLeft="@dimen/space_small"
-                android:text="@{String.valueOf(countryCovidInfo.deaths)}"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                </LinearLayout>
 
-        </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_last_downloaded"

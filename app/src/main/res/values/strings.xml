@@ -15,14 +15,15 @@
     <string name="error_rendering_countries">Error rendering country list</string>
     <string name="error_downloading_covid_info">Failed to download infos</string>
     <string name="error_no_covid_info">No data found for this country</string>
+    <string name="error_opening_country_page">Country not found</string>
 
     <string name="favorite_icon_content_description">favorite icon</string>
     <string name="open_country_page_icon_content_description">open country page icon</string>
 
     <string name="country_cases">Cases</string>
-    <string name="country_cases_confirmed">Confirmed:</string>
-    <string name="country_cases_recovered">Recovered:</string>
-    <string name="country_cases_deaths">Deaths:</string>
+    <string name="country_cases_confirmed">confirmed</string>
+    <string name="country_cases_recovered">recovered</string>
+    <string name="country_cases_deaths">deaths</string>
 
     <string name="added_to_favorites">%1$s added to favorites</string>
     <string name="removed_from_favorites">%1$s removed from favorites</string>
