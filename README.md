@@ -1,4 +1,4 @@
-# Covid19 Info
+# Covid-19 Worldwide Info
 
 
 Android app to provide information about Covid19. The project aims to be useful to the community and study Android.
