@@ -10,7 +10,7 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] MVVM
 - [x] LiveData
 - [x] Transformations
-- [x] DataBiding
+- [x] DataBinding
 - [x] Room
 - [x] Repository Pattern
 - [x] Observer Pattern
