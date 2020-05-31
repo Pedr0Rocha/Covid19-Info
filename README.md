@@ -19,4 +19,5 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] TypeConverters
 - [x] SharedPreferences
 - [x] Internationalization
+- [x] Expresso Tests
 - [ ] Work Manager
