@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
+import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
 
@@ -95,6 +96,7 @@ public class CountryFragment extends Fragment {
             if (covidInfoResource.error()) {
                 showSnackbar(getString(R.string.error_downloading_covid_info));
                 binding.tvLastDownloaded.setText(getString(R.string.error_downloading_covid_info));
+                if (covidInfoResource.data != null) displayCountryCovidInfo(covidInfoResource.data);
                 return;
             }
 
@@ -104,8 +106,7 @@ public class CountryFragment extends Fragment {
                     binding.tvLastDownloaded.setText(getString(R.string.error_no_covid_info));
                     return;
                 }
-                binding.setCountryCovidInfo(covidInfoResource.data);
-                binding.executePendingBindings();
+                displayCountryCovidInfo(covidInfoResource.data);
             }
 
             if (covidInfoResource.data != null) {
@@ -116,6 +117,11 @@ public class CountryFragment extends Fragment {
                 binding.tvLastUpdated.setText(covidInfoResource.data.getLastUpdatedFormatted());
             }
         });
+    }
+
+    private void displayCountryCovidInfo(CovidInfoEntity data) {
+        binding.setCountryCovidInfo(data);
+        binding.executePendingBindings();
     }
 
     private void showSnackbar(String message) {
