@@ -30,10 +30,6 @@ public class MainFragment extends Fragment {
     @Inject
     MainViewModel mViewModel;
 
-    @Inject
-    FirebaseAnalytics firebaseAnalytics;
-
-
     private MainFragmentBinding binding;
 
     public static MainFragment newInstance() {
@@ -145,12 +141,6 @@ public class MainFragment extends Fragment {
 
     private void toggleFavorite(CountryEntity country, boolean isUndoAction) {
         mViewModel.toggleFavorite(country);
-
-        String snackbarText = "";
-        if (country.isFavorite()) {
-            snackbarText = getString(R.string.removed_from_favorites, country.getName());
-            Fire
-        }
 
         String snackbarText = country.isFavorite() ?
                 getString(R.string.removed_from_favorites, country.getName()) :
