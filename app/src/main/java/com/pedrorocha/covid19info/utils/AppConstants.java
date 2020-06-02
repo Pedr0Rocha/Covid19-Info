@@ -1,6 +1,9 @@
 package com.pedrorocha.covid19info.utils;
 
+import android.util.TimeUtils;
+
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class AppConstants {
 
@@ -17,11 +20,19 @@ public class AppConstants {
 
         public static int COVID_INFO_METRIC = Calendar.MINUTE;
         public static int COVID_INFO_VALUE = 10;
+
+        public static TimeUnit SYNC_WORKER_TIME_UNIT = TimeUnit.HOURS;
+        public static int SYNC_WORKER_PERIODIC_VALUE = 12;
     }
 
     public static class SHARED_PREFS_KEYS {
         public static String FAVORITES = "favorites";
         public static String COUNTRIES_LAST_UPDATE = "countries_last_update";
+    }
+
+    public static class WORK_MANAGER_KEYS {
+        public static String SYNC_ISO2 = "ISO2";
+        public static String SYNC_SLUG = "slug";
     }
 
 }

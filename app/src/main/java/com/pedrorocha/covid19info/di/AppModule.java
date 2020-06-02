@@ -2,6 +2,8 @@ package com.pedrorocha.covid19info.di;
 
 import android.app.Application;
 
+import androidx.work.WorkManager;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -28,5 +30,11 @@ public class AppModule {
     @Provides
     Executor providesExecutor() {
         return Executors.newSingleThreadExecutor();
+    }
+
+    @Provides
+    @Singleton
+    WorkManager providesWorkManager(Application application) {
+        return WorkManager.getInstance(application);
     }
 }
