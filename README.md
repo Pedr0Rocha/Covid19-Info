@@ -1,4 +1,4 @@
-# Covid19 Info
+# Covid-19 Worldwide Info
 
 
 Android app to provide information about Covid19. The project aims to be useful to the community and study Android.
@@ -10,7 +10,7 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] MVVM
 - [x] LiveData
 - [x] Transformations
-- [x] DataBiding
+- [x] DataBinding
 - [x] Room
 - [x] Repository Pattern
 - [x] Observer Pattern
@@ -19,5 +19,6 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] TypeConverters
 - [x] SharedPreferences
 - [x] Internationalization
-- [x] Expresso Tests
-- [ ] Work Manager
+- [x] Espresso Tests
+- [x] Work Manager (implemented but not called)
+- [ ] Firebase (Crashlytics & Events)
