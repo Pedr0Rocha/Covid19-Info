@@ -6,15 +6,11 @@ import androidx.lifecycle.LiveData;
 
 import com.pedrorocha.covid19info.data.local.CountryDao;
 import com.pedrorocha.covid19info.data.local.CountryEntity;
-import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
 import com.pedrorocha.covid19info.data.network.NetworkBoundResource;
 import com.pedrorocha.covid19info.data.network.Resource;
-import com.pedrorocha.covid19info.data.network.responses.CovidInfoResponse;
 import com.pedrorocha.covid19info.data.network.services.CovidService;
-import com.pedrorocha.covid19info.utils.AbsentLiveData;
 import com.pedrorocha.covid19info.utils.AppConstants.SHARED_PREFS_KEYS;
 import com.pedrorocha.covid19info.utils.AppConstants.FETCH_COOLDOWNS;
-import com.pedrorocha.covid19info.utils.DateUtils;
 import com.pedrorocha.covid19info.utils.SharedPreferenceUtils;
 
 import java.util.Calendar;

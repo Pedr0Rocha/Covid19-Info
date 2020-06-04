@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.adapters.CountryAdapter;
@@ -29,6 +30,10 @@ public class MainFragment extends Fragment {
 
     @Inject
     MainViewModel mViewModel;
+    @Inject
+    FirebaseAnalytics analytics;
+    @Inject
+    FirebaseCrashlytics crashlytics;
 
     private MainFragmentBinding binding;
 
@@ -86,12 +91,14 @@ public class MainFragment extends Fragment {
 
             if (countryResource.error()) {
                 showSnackbar(getString(R.string.error_downloading_countries));
+                crashlytics.log("Error downloading countries");
                 return;
             }
 
             if (countryResource.success()) {
                 if (countryResource.data == null) {
                     showSnackbar(getString(R.string.error_rendering_countries));
+                    crashlytics.log("Error handling countries data");
                     return;
                 }
                 setupCountryAdapter(countryResource.data);
@@ -142,11 +149,23 @@ public class MainFragment extends Fragment {
     private void toggleFavorite(CountryEntity country, boolean isUndoAction) {
         mViewModel.toggleFavorite(country);
 
-        String snackbarText = country.isFavorite() ?
-                getString(R.string.removed_from_favorites, country.getName()) :
-                getString(R.string.added_to_favorites, country.getName());
+        Bundle bundle = new Bundle();
+        bundle.putString("country_name", country.getName());
+        bundle.putString("country_ISO2", country.getISO2());
 
-        if (isUndoAction) return;
+        String snackbarText = "";
+        if (country.isFavorite()) {
+            snackbarText = getString(R.string.removed_from_favorites, country.getName());
+            analytics.logEvent("add_favorite", bundle);
+        } else {
+            snackbarText = getString(R.string.added_to_favorites, country.getName());
+            analytics.logEvent("remove_favorite", bundle);
+        }
+
+        if (isUndoAction) {
+            analytics.logEvent("action_undo", bundle);
+            return;
+        }
 
         Snackbar.make(binding.getRoot(), snackbarText, Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.action_undo), v -> {

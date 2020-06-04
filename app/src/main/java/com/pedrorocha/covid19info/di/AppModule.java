@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.work.WorkManager;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -36,5 +39,15 @@ public class AppModule {
     @Singleton
     WorkManager providesWorkManager(Application application) {
         return WorkManager.getInstance(application);
+    }
+
+    @Provides
+    FirebaseAnalytics providesFirebaseAnalytics(Application application) {
+        return FirebaseAnalytics.getInstance(application);
+    }
+
+    @Provides
+    FirebaseCrashlytics providesFirebaseCrashlytics() {
+        return FirebaseCrashlytics.getInstance();
     }
 }

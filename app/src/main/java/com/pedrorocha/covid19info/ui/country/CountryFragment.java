@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
@@ -26,6 +28,10 @@ public class CountryFragment extends Fragment {
 
     @Inject
     CountryViewModel mViewModel;
+    @Inject
+    FirebaseAnalytics analytics;
+    @Inject
+    FirebaseCrashlytics crashlytics;
 
     private String countryISO2 = "";
 
@@ -76,6 +82,7 @@ public class CountryFragment extends Fragment {
         mViewModel.getCountry().observe(getViewLifecycleOwner(), country -> {
             if (country == null) {
                 showSnackbar(getString(R.string.error_opening_country_page));
+                crashlytics.log("Country " + countryISO2 + " not found");
                 if (getActivity() != null) getActivity().onBackPressed();
                 return;
             }
@@ -95,17 +102,25 @@ public class CountryFragment extends Fragment {
 
             if (covidInfoResource.error()) {
                 showSnackbar(getString(R.string.error_downloading_covid_info));
+                crashlytics.log("Failed to download " + countryISO2 + " info");
                 binding.tvLastDownloaded.setText(getString(R.string.error_downloading_covid_info));
                 if (covidInfoResource.data != null) displayCountryCovidInfo(covidInfoResource.data);
                 return;
             }
 
             if (covidInfoResource.success()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("country_ISO2", countryISO2);
+
                 if (covidInfoResource.data == null) {
                     showSnackbar(getString(R.string.error_no_covid_info));
+
+                    analytics.logEvent("no_data", bundle);
+
                     binding.tvLastDownloaded.setText(getString(R.string.error_no_covid_info));
                     return;
                 }
+                analytics.logEvent("show_data", bundle);
                 displayCountryCovidInfo(covidInfoResource.data);
             }
 
