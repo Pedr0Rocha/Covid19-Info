@@ -21,4 +21,4 @@ All the data is downloaded from [Covid19API](https://covid19api.com/)
 - [x] Internationalization
 - [x] Espresso Tests
 - [x] Work Manager (implemented but not called)
-- [ ] Firebase (Crashlytics & Events)
+- [x] Firebase (Crashlytics & Events)
