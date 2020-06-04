@@ -20,10 +20,13 @@
     <string name="favorite_icon_content_description">ícone favoritos</string>
     <string name="open_country_page_icon_content_description">ícone abrir página do país</string>
 
-    <string name="country_cases">Casos</string>
+    <string name="country_cases_title">Casos</string>
     <string name="country_cases_confirmed">confirmados</string>
+    <string name="country_cases_active">ativos</string>
     <string name="country_cases_recovered">recuperados</string>
     <string name="country_cases_deaths">mortes</string>
+    <string name="country_new_cases">novos casos</string>
+    <string name="country_cases">casos</string>
 
     <string name="added_to_favorites">%1$s adicionado aos favoritos</string>
     <string name="removed_from_favorites">%1$s removido dos favoritos</string>

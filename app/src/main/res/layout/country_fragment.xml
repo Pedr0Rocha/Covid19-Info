@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/country_cases"
+            android:text="@string/country_cases_title"
             android:textSize="20sp" />
 
         <TextView
@@ -91,12 +91,16 @@
             android:paddingVertical="@dimen/space_small">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_active"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/space_small"
+                android:layout_marginRight="@dimen/space_small"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/cv_confirmed"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
@@ -110,10 +114,69 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.confirmed)}"
+                        android:text="@string/country_cases_active"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.active)}"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="26sp"
                         android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:layout_marginRight="@dimen/space_small"
+                            android:gravity="center"
+                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newActive)}"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@{info.newActive > 0 ? @string/country_new_cases : @string/country_cases}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_confirmed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/space_small"
+                android:layout_marginLeft="@dimen/space_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/cv_active">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_medium">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -123,6 +186,44 @@
                         android:text="@string/country_cases_confirmed"
                         android:textSize="18sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.confirmed)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:layout_marginRight="@dimen/space_small"
+                            android:gravity="center"
+                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newRecovered)}"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@{info.newConfirmed > 0 ? @string/country_new_cases : @string/country_cases}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -160,18 +261,47 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.recovered)}"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
+                        android:text="@string/country_cases_recovered"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/country_cases_recovered"
-                        android:textSize="18sp" />
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.recovered)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:layout_marginRight="@dimen/space_small"
+                            android:gravity="center"
+                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newRecovered)}"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@{info.newRecovered > 0 ? @string/country_new_cases : @string/country_cases}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -200,19 +330,47 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.deaths)}"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
+                        android:text="@string/country_cases_deaths"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/country_cases_deaths"
-                        android:textSize="18sp" />
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.deaths)}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:layout_marginRight="@dimen/space_small"
+                            android:gravity="center"
+                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newDeaths)}"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@{info.newDeaths > 0 ? @string/country_new_cases : @string/country_cases}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
