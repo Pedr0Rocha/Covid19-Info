@@ -6,6 +6,7 @@
     <data>
         <import type="java.text.NumberFormat"/>
         <import type="java.util.Locale"/>
+        <import type="android.view.View"/>
         <variable
             name="country"
             type="com.pedrorocha.covid19info.data.local.CountryEntity">
@@ -210,7 +211,7 @@
                             android:layout_marginEnd="@dimen/space_small"
                             android:layout_marginRight="@dimen/space_small"
                             android:gravity="center"
-                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newRecovered)}"
+                            android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.newConfirmed)}"
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -367,7 +368,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="@{info.newDeaths > 0 ? @string/country_new_cases : @string/country_cases}"
+                            android:text="@{info.newDeaths > 0 ? @string/country_new_deaths : @string/country_cases_deaths}"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -385,6 +386,27 @@
             android:layout_marginTop="@dimen/space_large"
             android:gravity="center"
             android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/space_large"
+            android:gravity="center"
+            android:text="@string/data_from_api"
+            android:autoLink="web"
+            android:textSize="12sp"
+            android:visibility="@{info == null ? View.GONE : View.VISIBLE}" />
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_large"
+            android:paddingHorizontal="32dp"
+            android:text="@string/btn_share"
+            android:visibility="@{info == null ? View.GONE : View.VISIBLE}" />
 
     </LinearLayout>
 </layout>
