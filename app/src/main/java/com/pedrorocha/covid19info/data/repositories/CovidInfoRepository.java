@@ -50,6 +50,11 @@ public class CovidInfoRepository {
                 mostRecentInfo.setLastDownloaded(new Date());
                 mostRecentInfo.setISO2(country.getISO2());
 
+                /* Get yesterday's info to calc new cases */
+                if (item.size() > 1) {
+                    mostRecentInfo.setNewCasesInfo(item.get(item.size() - 2));
+                }
+
                 covidInfoDao.insert(mostRecentInfo);
             }
 

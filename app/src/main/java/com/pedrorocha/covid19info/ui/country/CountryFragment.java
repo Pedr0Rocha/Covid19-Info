@@ -135,7 +135,7 @@ public class CountryFragment extends Fragment {
     }
 
     private void displayCountryCovidInfo(CovidInfoEntity data) {
-        binding.setCountryCovidInfo(data);
+        binding.setInfo(data);
         binding.executePendingBindings();
     }
 

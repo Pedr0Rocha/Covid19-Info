@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="java.text.NumberFormat"/>
+        <import type="java.util.Locale"/>
         <variable
             name="country"
             type="com.pedrorocha.covid19info.data.local.CountryEntity">
         </variable>
         <variable
-            name="countryCovidInfo"
+            name="info"
             type="com.pedrorocha.covid19info.data.local.CovidInfoEntity">
         </variable>
     </data>
@@ -78,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_font_light"
-            android:text="@{countryCovidInfo == null ? @string/no_data : countryCovidInfo.lastUpdatedFormatted}"
+            android:text="@{info == null ? @string/no_data : info.lastUpdatedFormatted}"
             android:textSize="14sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.confirmedFormatted)}"
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.confirmed)}"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="26sp"
                         android:textStyle="bold" />
@@ -158,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.recoveredFormatted)}"
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.recovered)}"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="26sp"
                         android:textStyle="bold" />
@@ -198,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@{countryCovidInfo == null ? `--` : String.valueOf(countryCovidInfo.deathsFormatted)}"
+                        android:text="@{info == null ? `--` : NumberFormat.getNumberInstance(Locale.getDefault()).format(info.deaths)}"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="26sp"
                         android:textStyle="bold" />
