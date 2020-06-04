@@ -9,7 +9,6 @@ import com.pedrorocha.covid19info.data.network.Resource;
 import com.pedrorocha.covid19info.data.repositories.CountryRepository;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
