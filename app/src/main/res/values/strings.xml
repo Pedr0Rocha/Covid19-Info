@@ -20,10 +20,31 @@
     <string name="favorite_icon_content_description">favorite icon</string>
     <string name="open_country_page_icon_content_description">open country page icon</string>
 
-    <string name="country_cases">Cases</string>
+    <string name="country_cases_title">Cases</string>
     <string name="country_cases_confirmed">confirmed</string>
+    <string name="country_cases_active">active</string>
     <string name="country_cases_recovered">recovered</string>
     <string name="country_cases_deaths">deaths</string>
+    <string name="country_new_deaths">new deaths</string>
+    <string name="country_new_cases">new cases</string>
+    <string name="country_cases">cases</string>
+    <string name="data_from_api">data from
+        <a href="https://covid19api.com">https://covid19api.com</a>
+    </string>
+
+    <string name="case_active">Active</string>
+    <string name="case_confirmed">Confirmed</string>
+    <string name="case_recovered">Recovered</string>
+    <string name="case_deaths">Deaths</string>
+
+    <string name="btn_share">share</string>
+    <string name="share_intent_title">Share Covid-19 Information</string>
+    <string name="share_title">*%1$s - Covid-19 Info (%2$s)*\n\n</string>
+    <string name="share_positive_cases">%1$s cases\n%2$s total\n%3$s new cases\n\n</string>
+    <string name="share_negative_cases">%1$s cases\n%2$s total\n%3$s cases\n\n</string>
+    <string name="share_deaths_cases">Deaths\n%1$s total\n%2$s new deaths\n\n</string>
+    <string name="share_deaths_negative_cases">Deaths\n%1$s total\n%2$s deaths\n\n</string>
+    <string name="share_app">from %1$s app\n%2$s</string>
 
     <string name="added_to_favorites">%1$s added to favorites</string>
     <string name="removed_from_favorites">%1$s removed from favorites</string>

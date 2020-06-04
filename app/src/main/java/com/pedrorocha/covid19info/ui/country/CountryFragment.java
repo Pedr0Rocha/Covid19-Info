@@ -3,6 +3,7 @@ package com.pedrorocha.covid19info.ui.country;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,11 +17,15 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.pedrorocha.covid19info.BuildConfig;
 import com.pedrorocha.covid19info.CovidApplication;
 import com.pedrorocha.covid19info.R;
 import com.pedrorocha.covid19info.data.local.CovidInfoEntity;
 import com.pedrorocha.covid19info.databinding.CountryFragmentBinding;
 import com.pedrorocha.covid19info.utils.AppConstants;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -135,8 +140,73 @@ public class CountryFragment extends Fragment {
     }
 
     private void displayCountryCovidInfo(CovidInfoEntity data) {
-        binding.setCountryCovidInfo(data);
+        setupShareButton(data);
+
+        binding.setInfo(data);
         binding.executePendingBindings();
+    }
+
+    private void setupShareButton(CovidInfoEntity data) {
+        binding.btnShare.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("country_ISO2", countryISO2);
+            analytics.logEvent(FirebaseAnalytics.Event.SHARE, bundle);
+
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getSharebleInfo(data));
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(
+                    sendIntent, getString(R.string.share_intent_title)
+            );
+            startActivity(shareIntent);
+        });
+    }
+
+    private String getSharebleInfo(CovidInfoEntity data) {
+        String title = getString(
+                R.string.share_title, data.getCountryName(), data.getLastUpdatedFormatted()
+        );
+
+        String activeCases = getString(
+                data.getNewActive() > 0 ?
+                        R.string.share_positive_cases : R.string.share_negative_cases,
+                getString(R.string.case_active),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getActive()),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getNewActive())
+        );
+
+        String confirmedCases = getString(
+                data.getNewConfirmed() > 0 ?
+                        R.string.share_positive_cases : R.string.share_negative_cases,
+                getString(R.string.case_confirmed),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getConfirmed()),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getNewConfirmed())
+        );
+
+        String recoveredCases = getString(
+                data.getNewRecovered() > 0 ?
+                        R.string.share_positive_cases : R.string.share_negative_cases,
+                getString(R.string.case_recovered),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getRecovered()),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getNewRecovered())
+        );
+
+        String deaths = getString(
+                data.getNewDeaths() > 0 ?
+                        R.string.share_deaths_cases : R.string.share_deaths_negative_cases,
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getDeaths()),
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(data.getNewDeaths())
+        );
+
+        String app = getString(
+                R.string.share_app,
+                getString(R.string.app_name),
+                "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
+        );
+
+        return title + activeCases + confirmedCases + recoveredCases + deaths + app;
     }
 
     private void showSnackbar(String message) {

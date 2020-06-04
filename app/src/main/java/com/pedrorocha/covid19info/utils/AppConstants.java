@@ -11,8 +11,8 @@ public class AppConstants {
 
     public static String BUNDLE_COUNTRY_ISO2 = "country_iso2";
 
-    /* Downloading whole week of data */
-    public static int DOWNLOAD_INFO_FROM_DAYS_BEFORE = 7;
+    /* Downloading last four days of data */
+    public static int DOWNLOAD_INFO_FROM_DAYS_BEFORE = 4;
 
     public static class FETCH_COOLDOWNS {
         public static int COUNTRIES_METRIC = Calendar.HOUR;
