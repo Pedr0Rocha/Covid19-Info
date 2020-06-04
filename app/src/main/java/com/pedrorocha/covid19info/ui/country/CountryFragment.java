@@ -205,6 +205,7 @@ public class CountryFragment extends Fragment {
                 getString(R.string.app_name),
                 "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
         );
+        app = "";
 
         return title + activeCases + confirmedCases + recoveredCases + deaths + app;
     }
