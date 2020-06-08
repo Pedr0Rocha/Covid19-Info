@@ -43,6 +43,11 @@ To download the app, you must go to the [releases](https://github.com/Pedr0Rocha
 
 Data is downloaded from [Covid19API](https://covid19api.com/)
 
+### App Architecture
+Covid-19 Worldwide Info uses MVVM architecture, observer & repository pattern to update the UI with the LiveData downloaded using Retrofit, also persisting data locally using Room.
+
+<img src="/images/architecture.png" align="center" width="50%"/>
+
 ### License 
 ```
 Copyright Covid-19 Worldwide Info by Pedro Rocha
